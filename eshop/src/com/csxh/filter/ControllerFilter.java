@@ -1,8 +1,6 @@
 package com.csxh.filter;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -14,8 +12,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import com.csxh.action.CategoryAction;
 import com.csxh.action.IndexAction;
 import com.csxh.action.SubcategoryAction;
+import com.csxh.model.ActionContext;
 import com.csxh.util.Log4jUtil;
 
 /**
@@ -79,6 +79,40 @@ public class ControllerFilter implements Filter {
 
 		}
 
+		if("category.jsp".equals(path)){
+			
+			ActionContext ctx=new ActionContext();
+			ctx.setRequest(req);
+			ctx.setSession(req.getSession());
+			
+			CategoryAction action = new CategoryAction();
+			
+			action.setActionContext(ctx);
+
+			Log4jUtil.info("转向首页Action处理");
+			Log4jUtil.info("转入JSP页中使用的内置对象");
+			
+			// action.setApplication(this.getServletContext());
+
+			// 如果使用框架，则一般是使用反射自动地将请求参数传给Action对象的属性
+			String s = req.getParameter("id");
+
+			action.setId(Integer.parseInt(s));
+
+			Log4jUtil.info("处理业务数据及逻辑操作");
+			String result = action.handle();
+			if ("success".equals(result)) {
+
+				Log4jUtil.info("转向JSP页显示");
+
+				request.getRequestDispatcher(path).forward(request, response);
+
+			} else if ("fail".equals(result)) {
+
+			}
+			
+		}
+		
 		if ("subcategory.jsp".equals(path)) {
 
 			SubcategoryAction action = new SubcategoryAction();

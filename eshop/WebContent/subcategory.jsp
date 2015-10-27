@@ -52,7 +52,7 @@
       <td bgcolor="#FFCC66" height="22"> 
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr> 
-            <td width="50%">　<a href="index.jsp" class="red">首页</a> &gt; <a href="category.jsp?id=" class="red">${subCategory.category.name}</a> &gt; ${subCategory.name}</td>
+            <td width="50%">　<a href="index.jsp" class="red">首页</a> &gt; <a href="category.jsp?id=${subCategory.category.id }" class="red">${subCategory.category.name}</a> &gt; ${subCategory.name}</td>
             <td width="50%" align="center" valign="middle"> 
               <select name="mnuCategory">
                 <option value="${CategoryID}" selected>在本类商城中</option>

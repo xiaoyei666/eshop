@@ -96,7 +96,7 @@
               <c:forEach items="${categoryList}" var="category" >
               
 	              <tr> 
-	                <td valign="middle" align="center"><a href="category.jsp">
+	                <td valign="middle" align="center"><a href="category.jsp?id=${category.id}">
 	                
 	                <c:if test="${category.id==1}">	                
 	                    <img src="images/${category.smallImg}" width="81" height="15" border="0">	                   
