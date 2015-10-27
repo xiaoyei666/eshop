@@ -85,14 +85,14 @@ public class SubcategoryAction {
 		int totalRows=JdbcUtil.queryTotalRows("product", "id","subCategoryId ="+this.id);
 		String pageRows= this.req.getServletContext().getInitParameter("pageRows");
 		
-		Pager pager=new Pager(totalRows,pageRows!=null ? Integer.parseInt(pageRows):5);
+		Pager pager=new Pager(totalRows,pageRows!=null ? Integer.parseInt(pageRows):3);
 		
 		//…Ë÷√µ±«∞“≥∫≈
 		pager.setCurrentPage(this.currentPage);
 		
 		String sql = "select top " + pager.getPageRows()
-		+ " id,name,smallImg,description, price,listPrice,hotDeal from product  where id not in( select top "
-		+ pager.getFirstRow() + " id from product)";
+		+ " id,name,smallImg,description, price,listPrice,hotDeal from product where subCategoryId="+this.id+" and id not in( select top "
+		+ pager.getFirstRow() + " id from product where subCategoryId="+this.id+")";
 		
 		List<Product>productList=new ArrayList<Product>(pager.getPageRows());
 		objectList=JdbcUtil.queryForObjectList(sql);
@@ -111,8 +111,11 @@ public class SubcategoryAction {
 			productList.add(p);
 		}
 		
+		this.req.setAttribute("pager", pager);
 		this.req.setAttribute("productList", productList);
 
+		System.out.println(productList.size());
+		
 		return result;
 	}
 

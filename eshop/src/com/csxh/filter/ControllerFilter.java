@@ -91,13 +91,13 @@ public class ControllerFilter implements Filter {
 
 			// 如果使用框架，则一般是使用反射自动地将请求参数传给Action对象的属性
 			String s = req.getParameter("id");
-			
+
 			action.setId(Integer.parseInt(s));
-			
-			s=req.getParameter("currentPage");
-			
-			action.setCurrentPage(s==null ? 1: Integer.parseInt(s));
-			
+
+			s = req.getParameter("currentPage");
+
+			action.setCurrentPage(s == null ? 1 : Integer.parseInt(s));
+
 			Log4jUtil.info("处理业务数据及逻辑操作");
 			String result = action.handle();
 			if ("success".equals(result)) {

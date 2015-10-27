@@ -98,21 +98,26 @@
       </table>
       <table width="100%" border="0" cellspacing="2" cellpadding="2">
         <tr> 
-          <td valign="middle" align="left">当前为第 ${subProducts_first} 到 ${subProducts_last} 条记录，共${subProducts_total}条商品信息 </td>
+          <td valign="middle" align="left">当前为第 ${pager.firstRow+1} 到 ${pager.lastRow+1} 条记录，共${pager.totalRows}条商品信息 </td>
         </tr>
       </table>
       
-      
       <table width="99%" border="0" cellspacing="2" cellpadding="5">
+      <!-- 对应子类的产品分页列表开始 -->
+      <c:forEach items="${productList }" var="product">
+      
+      
         <tr> 
           <td rowspan="3" width="20%" valign="top" align="center">
-          <a href="product.asp?"><img src="images/product/${sImgUrl}" border="0"/></a>
+          <a href="product.jsp?"><img src="images/product/${product.smallImg}" border="0"/></a>
           </td>
           <td width="80%">
-          <a href="product.asp?" class="productName">${ProductName}</a>
+          <a href="product.asp?" class="productName">${product.name}</a>
            
             <!-- 判断是否显示折扣图标开始 -->
-            <img src="images/hotprice.gif" width="24" height="24"> 
+            <c:if test="${product.hotDeal}">            
+               <img src="images/hotprice.gif" width="24" height="24"> 
+            </c:if>
             <!-- 判断是否显示折扣图标结束-->
             
             　<a href="#"><img border=0 src="images/addtocart.gif" width="30" height="18" alt="添加到购物车"></A></td>
@@ -120,27 +125,38 @@
         <tr> 
           <td width="80%"> 
             <!-- 是否显示原价：条件是price not eq 0 -->
-            原价：<span class="hotPrice">${Price}</span>元　现价： 
+            <c:if test="${product.price != 0 }">            
+            原价：<span class="hotPrice">${product.price}</span>元　现价： 
+            </c:if>
             <!-- 是否显示原价 -->
             
            <!-- 是否显示价格：条件是price eq 0 -->
+           <c:if test="${product.price eq 0 }">
             价格： 
+           </c:if>
             <!-- 是否显示价格：条件是price eq 0 -->
-          ${ListPrice}元　</td>
-        </tr>
-        <tr> 
-          <td width="80%"> 
-            ${Description}
+          ${product.listPrice}元　
+          
           </td>
         </tr>
         <tr> 
+          <td width="80%"> 
+            ${product.description}
+          </td>
+        </tr>
+        
+        </c:forEach>
+        
+        <!-- 对应子类的产品分页列表结束 -->
+        <tr> 
           <td colspan="2" height="1" bgcolor="#CCCCCC"></td>
         </tr>
+        
       </table>
       
       <table width="100%" border="0" cellspacing="2" cellpadding="2">
         <tr> 
-          <td> 当前为第 ${subProducts_first} 到 ${subProducts_last} 条记录，共${subProducts_total}条商品信息 </td>
+          <td>当前为第 ${pager.firstRow+1} 到 ${pager.lastRow+1} 条记录，共${pager.totalRows}条商品信息</td>
         </tr>
         <tr> 
           <td align="center"> 
@@ -148,12 +164,16 @@
               <tr> 
                 <td width="15%" align="left"> 
                   <!--是否显示第一页 -->
-                  <a href="#" class="navi">第一页</a> 
+                  <c:if test="${pager.pageCount gt 0 }">
+                     <a href="subcategory.jsp?id=${subCategory.id}&currentPage=1" class="navi">第一页</a> 
+                  </c:if>
                   <!--是否显示第一页 -->
                 </td>
                 <td width="15%" align="left"> 
                   <!--是否显示前一页 -->
-                  <a href="#" class="navi">前一页</a> 
+                  <c:if test="${pager.hasPrev }">                  
+                     <a href="subcategory.jsp?id=${subCategory.id}&currentPage=${pager.currentPage-1}" class="navi">前一页</a> 
+                  </c:if>
                   <!--是否显示前一页 -->
                 </td>
                 <td width="40%" align="center"> 
@@ -161,12 +181,16 @@
                 </td>
                 <td width="15%" align="right"> 
                   <!--是否显示下一页 -->
-                  <a href="#" class="navi">下一页</a> 
+                  <c:if test="${pager.hasNext }">                  
+                     <a href="subcategory.jsp?id=${subCategory.id}&currentPage=${pager.currentPage+1}" class="navi">下一页</a> 
+                  </c:if>
                   <!--是否显示下一页 -->
                 </td>
                 <td width="15%" align="right"> 
                   <!--是否显示最末页 -->
-                  <a href="#" class="navi">最末页</a> 
+                  <c:if test="${pager.pageCount gt 0 }">                  
+                     <a href="subcategory.jsp?id=${subCategory.id}&currentPage=${pager.pageCount}" class="navi">最末页</a> 
+                  </c:if>
                   <!--是否显示最末页 -->
                 </td>
               </tr>
