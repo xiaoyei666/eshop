@@ -53,8 +53,7 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td width="50%">¡¡
-<<<<<<< HEAD
-=======
+
             <a href="index.jsp" class="red">Ê×Ò³</a> &gt; <a href="category.jsp?" class="red" >${CategoryName}</a> &gt; <a href="subcategory.jsp?" class="red">${SubCategoryName}</a>
             </td>
             <td width="50%" valign="middle" align="center"> 
@@ -264,7 +263,7 @@
                 <tr align="center"> 
                   <td colspan="2"> 
                     <input type="submit" name="Submit" value="ÆÀ ·Ö">
-                    <input type="hidden" name="hiddenField" value="${ProductID}">
+                    <input type="hidden" name="hiddenField" value="${product.id}">
                   </td>
                 </tr>
               </table>

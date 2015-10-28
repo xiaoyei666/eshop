@@ -19,6 +19,7 @@ public class ProductAction implements RequestAware {
 		
 		String result="fail";
 		
+		System.out.println(this.id);
 		
 		
 		return result;
