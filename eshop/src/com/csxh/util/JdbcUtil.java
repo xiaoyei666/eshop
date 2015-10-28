@@ -31,8 +31,7 @@ public class JdbcUtil {
 			// 从属性配置文件中读取参数
 			Properties p = new Properties();
 			// 从类的路径（classpath）读取文件，方法是通过类加载器来获取
-			InputStream is = JdbcUtil.class.getClassLoader()
-					.getResourceAsStream("jdbc.properties");
+			InputStream is = JdbcUtil.class.getClassLoader().getResourceAsStream("jdbc.properties");
 			p.load(is);
 			JdbcUtil.driver = p.getProperty("driver");
 			JdbcUtil.url = p.getProperty("url");
@@ -46,16 +45,14 @@ public class JdbcUtil {
 	}
 
 	// 打开数据库连接
-	public static Connection openConnection() throws SQLException,
-			ClassNotFoundException {
+	public static Connection openConnection() throws SQLException, ClassNotFoundException {
 
 		Connection cnn = null;
 
 		// 通过反射加载数据库驱动类的对象
 		Class.forName(JdbcUtil.driver);
 		// 就可以获取连接对象
-		cnn = DriverManager.getConnection(JdbcUtil.url, JdbcUtil.user,
-				JdbcUtil.password);
+		cnn = DriverManager.getConnection(JdbcUtil.url, JdbcUtil.user, JdbcUtil.password);
 
 		return cnn;
 
@@ -81,10 +78,10 @@ public class JdbcUtil {
 		return totalRows;
 	}
 
-	public static int queryTotalRows(String tableName, String pramaryKey,String where) {
+	public static int queryTotalRows(String tableName, String pramaryKey, String where) {
 		int totalRows = 0;
-		where=where.replace("where", "");
-		String sql = "select count(" + pramaryKey + ") from " + tableName +" where "+where;
+		where = where.replace("where", "");
+		String sql = "select count(" + pramaryKey + ") from " + tableName + " where " + where;
 		try {
 			Connection cnn = openConnection();
 			Statement stmt = cnn.createStatement();
@@ -170,6 +167,16 @@ public class JdbcUtil {
 
 	}
 
+	// 查询数据库中表的记录
+	public static Object[] queryForObject(String sql) {
+		List<Object[]> objectList = JdbcUtil.queryForObjectList(sql);
+		if (objectList.size() > 0) {
+			return objectList.get(0);
+		} else {
+			return null;
+		}
+	}
+
 	// 向数据库表中插入记录：带参数的SQL需要使用占位符类似于format中占位符，但占位符统一用'?'表示
 	public static boolean insertObject(String sql, Object... values) {// insert
 																		// into
@@ -200,8 +207,7 @@ public class JdbcUtil {
 					pstmt.setInt(i + 1, (Integer) values[i]);// 已经知道是Integer类型
 				} else if (values[i] instanceof String) {
 					pstmt.setString(i + 1, (String) values[i]);
-				} else if (values[i].getClass().getName()
-						.equals("java.lang.Boolean")) {
+				} else if (values[i].getClass().getName().equals("java.lang.Boolean")) {
 					pstmt.setBoolean(i + 1, (Boolean) values[i]);
 				} else {
 					// throw new Exception("类型不认识");
@@ -255,8 +261,7 @@ public class JdbcUtil {
 		char firstChar = simpleName.charAt(0);
 		firstChar = java.lang.Character.toLowerCase(firstChar);
 		// 构建表的名称
-		sb.append('[').append(firstChar).append(simpleName.substring(1))
-				.append("]");
+		sb.append('[').append(firstChar).append(simpleName.substring(1)).append("]");
 
 		// 构建表的列名称
 		sb.append(" ( ");
@@ -311,9 +316,9 @@ public class JdbcUtil {
 
 				}
 
-			}// end if(mn.startsWith("get"))
+			} // end if(mn.startsWith("get"))
 
-		}// end for
+		} // end for
 
 		// 构建where语句
 
@@ -412,8 +417,7 @@ public class JdbcUtil {
 		char firstChar = simpleName.charAt(0);
 		firstChar = java.lang.Character.toLowerCase(firstChar);
 		// 构建表的名称
-		sb.append('[').append(firstChar).append(simpleName.substring(1))
-				.append("]");
+		sb.append('[').append(firstChar).append(simpleName.substring(1)).append("]");
 		// 构建set语句
 		sb.append("  set ");
 
@@ -471,16 +475,15 @@ public class JdbcUtil {
 
 				}
 
-			}// end if(mn.startsWith("get"))
+			} // end if(mn.startsWith("get"))
 
-		}// end for
+		} // end for
 
 		// 删除最后的逗号
 		sb.deleteCharAt(sb.length() - 1);
 
 		// 构建where语句
-		sb.append(" where ").append(
-				whereField2ValueMap.keySet().iterator().next());
+		sb.append(" where ").append(whereField2ValueMap.keySet().iterator().next());
 		sb.append("=?");
 
 		System.out.println(sb);
@@ -496,8 +499,7 @@ public class JdbcUtil {
 			// 设置占位符的值
 			int index = 1;
 			for (int i = index - 1; i < updateField2ValueMapList.size(); i++, index++) {
-				Map<String, Object> field2ValueMap = updateField2ValueMapList
-						.get(i);
+				Map<String, Object> field2ValueMap = updateField2ValueMapList.get(i);
 				ps.setObject(index, field2ValueMap.values().iterator().next());
 			}
 
@@ -546,9 +548,7 @@ public class JdbcUtil {
 		Object value = null;
 		Method[] methods = javaBean.getClass().getDeclaredMethods();
 		for (Method method : methods) {
-			String getMethod = "get"
-					+ java.lang.Character.toUpperCase(key.charAt(0))
-					+ key.substring(1);
+			String getMethod = "get" + java.lang.Character.toUpperCase(key.charAt(0)) + key.substring(1);
 			if (getMethod.equals(method.getName())) {
 				try {
 					value = method.invoke(javaBean);
@@ -570,11 +570,9 @@ public class JdbcUtil {
 
 			// 不使用占位符
 			if (value instanceof String) {
-				sb.append(" where ").append(key)
-						.append("='" + value.toString() + "' ");// 因为如果是值是字符串，则要加上一对单引号
+				sb.append(" where ").append(key).append("='" + value.toString() + "' ");// 因为如果是值是字符串，则要加上一对单引号
 			} else {
-				sb.append(" where ").append(key)
-						.append("=" + value.toString() + " ");// 因为如果不是值是字符串，则不要加上一对单引号
+				sb.append(" where ").append(key).append("=" + value.toString() + " ");// 因为如果不是值是字符串，则不要加上一对单引号
 			}
 
 		}
@@ -615,8 +613,7 @@ public class JdbcUtil {
 	}
 
 	// 从数据库表中查询记录
-	public static <T> List<T> queryObjectList(Class<T> javaBeanClass,
-			String... wheres) {
+	public static <T> List<T> queryForObjectList(Class<T> javaBeanClass, String... wheres) {
 
 		List<T> objectList = new ArrayList<T>();
 
@@ -681,9 +678,8 @@ public class JdbcUtil {
 					String columnValueClass = rsmd.getColumnClassName(i + 1);
 
 					// 根据列的名称来构建JavaBean对象的setXxxx方法
-					String setXxxx = "set"
-							+ java.lang.Character.toUpperCase(columnName
-									.charAt(0)) + columnName.substring(1);
+					String setXxxx = "set" + java.lang.Character.toUpperCase(columnName.charAt(0))
+							+ columnName.substring(1);
 
 					Method[] methods = javaBeanClass.getMethods();
 					// 寻找setXxxx方法，并调用它
@@ -704,9 +700,9 @@ public class JdbcUtil {
 
 							break;
 						}
-					}// end for method
+					} // end for method
 
-				}// end for column
+				} // end for column
 
 				// 将JavaBean对象加入返回列表中
 				objectList.add(object);
@@ -738,12 +734,23 @@ public class JdbcUtil {
 		return objectList;
 	}
 
+	// 从数据库表中查询记录
+	@SuppressWarnings("unchecked")
+	public static <T> T queryForObject(Class<T> javaBeanClass, String... wheres) {
+	   List<T> list=(List<T>) JdbcUtil.queryForObjectList(javaBeanClass, wheres);
+	   if(list.size()>0){
+		   return list.get(0);
+	   }else{
+		   return null;
+	   }
+	}
+
 	// 当表与javabean的名称不一致，可以建立它们之间的名称映射对象
 	/*
 	 * Customer---->雇员 id------->雇员ID
 	 */
-	public static boolean insertObject(Object javaBean,
-			Map<String, String> javaBean2TableNameMap, String... excludeFileds) {
+	public static boolean insertObject(Object javaBean, Map<String, String> javaBean2TableNameMap,
+			String... excludeFileds) {
 
 		boolean fOk = false;
 
@@ -808,8 +815,7 @@ public class JdbcUtil {
 
 						// 拼接成：列名=？,的形式
 						String javaBeanFieldName = firstChar + field;// 拼接成属性名称
-						String tableFieldName = javaBean2TableNameMap
-								.get(javaBeanFieldName);
+						String tableFieldName = javaBean2TableNameMap.get(javaBeanFieldName);
 						if (tableFieldName == null) {
 							// 说明一致
 							tableFieldName = javaBeanFieldName;
@@ -824,9 +830,9 @@ public class JdbcUtil {
 
 				}
 
-			}// end if(mn.startsWith("get"))
+			} // end if(mn.startsWith("get"))
 
-		}// end for
+		} // end for
 
 		// 构建where语句
 

@@ -45,12 +45,12 @@ public class IndexAction {
 		// 获取大类别及其子类别列表
 		String result = "fail";
 
-		List<Category> categoryList = JdbcUtil.queryObjectList(Category.class);
+		List<Category> categoryList = JdbcUtil.queryForObjectList(Category.class);
 
 		if (categoryList != null && categoryList.size() > 0) {
 
 			for (Category c : categoryList) {
-				List<SubCategory> subList = JdbcUtil.queryObjectList(SubCategory.class, "categoryId=" + c.getId());
+				List<SubCategory> subList = JdbcUtil.queryForObjectList(SubCategory.class, "categoryId=" + c.getId());
 				c.setChildren(subList);
 			}
 
