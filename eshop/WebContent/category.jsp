@@ -2,12 +2,13 @@
 	pageEncoding="gb2312"  %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	
 <html>
 <head>
 <title>网上商城</title>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<link rel="stylesheet" href="style/${CategoryStyle}" type="text/css">
+<link rel="stylesheet" href="style/${category.style}" type="text/css">
 </head>
 <body bgcolor="#FFFFFF" text="#000000" topmargin="2">
 <table width="760" border="0" cellspacing="0" cellpadding="0" align="center">
@@ -75,14 +76,30 @@
       <!-- 循环显示子类名称，按每行4列的方式显示-->
       <table>
         
+        <c:forEach items="${category.children}" var="subCategory" varStatus="status" >
         
-        <tr  valign="top"> 
+        <c:if test="${status.count % 4==0 }">
+            <tr  valign="top"> 
+        </c:if>
+        
+        
           
+          <c:forEach begin="0" end="0"  >
           
-          <td> <img src="images/category/square.gif" width="9" height="9">
-           <a href="subcategory.jsp?" class="subcate">${SubCategoryName}</a> </td>
+          <td> 
+              <img src="images/category/square.gif" width="9" height="9">
+              <a href="subcategory.jsp?" class="subcate">${subCategory.name}</a>
+          </td>
+         
+          </c:forEach>
           
-        </tr>
+          <c:if test="${status.count % 4==0 }">
+          
+             </tr>
+
+          </c:if>
+        
+        </c:forEach>
         
       </table>
       <!-- 循环显示子类名称，按每行4列的方式显示-->
@@ -117,7 +134,19 @@
               </tr>
               <tr> 
                 <td width="72%"> 
-                  ${product.description}
+                
+                <c:choose>
+	                <c:when test="${ fn:length(product.description) gt 100 }">
+	                
+	                	<c:out value="${ fn:substring(product.description,0,100) }" /> <span>...</span>
+	                     
+	                </c:when>
+	                <c:otherwise>
+	                	${ product.description }
+	                </c:otherwise>
+                </c:choose>
+                  
+                
                 </td>
               </tr>
               <tr> 
