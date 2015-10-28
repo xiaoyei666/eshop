@@ -78,26 +78,24 @@
         
         <c:forEach items="${category.children}" var="subCategory" varStatus="status" >
         
-        <c:if test="${status.count % 4==0 }">
-            <tr  valign="top"> 
+        <c:if test="${status.index % 4==0 }">
+            
+            <tr  valign="top">
+           
+             
         </c:if>
         
-        
-          
-          <c:forEach begin="0" end="0"  >
-          
           <td> 
               <img src="images/category/square.gif" width="9" height="9">
               <a href="subcategory.jsp?" class="subcate">${subCategory.name}</a>
           </td>
-         
-          </c:forEach>
           
-          <c:if test="${status.count % 4==0 }">
-          
-             </tr>
-
-          </c:if>
+        <c:if test="${status.count % 4==0 }">
+        
+            </tr>
+           
+             
+        </c:if>
         
         </c:forEach>
         
@@ -123,10 +121,10 @@
               <!--新品列表开始 -->
               <c:forEach items="${newProductList}" var="product">
               <tr valign="top"> 
-                <td rowspan="3"><a href="product.jsp?">
+                <td rowspan="3"><a href="product.jsp?id=${product.id}">
                    <img src="images/product/${product.smallImg}" border="0"></a>
                 </td>
-                <td width="72%"><a href="product.jsp?" class="productName">${product.name}</a>
+                <td width="72%"><a href="product.jsp?id=${product.id }" class="productName">${product.name}</a>
                 </td>
               </tr>
               <tr> 
@@ -175,8 +173,8 @@
               <!--打折列表开始 -->
               <c:forEach items="${discountProductList }" var="product">
               <tr valign="top"> 
-                <td rowspan="3"><a href="product.jsp?"><img src="images/product/${product.smallImg}" border="0"></a></td>
-                <td width="72%"><a href="product.jsp?" class="productName">${product.name}</a></td>
+                <td rowspan="3"><a href="product.jsp?id=${product.id }"><img src="images/product/${product.smallImg}" border="0"></a></td>
+                <td width="72%"><a href="product.jsp?id=${product.id }" class="productName">${product.name}</a></td>
               </tr>
               <tr> 
                 <td width="72%">${product.author}</td>

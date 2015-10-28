@@ -109,10 +109,10 @@
       
         <tr> 
           <td rowspan="3" width="20%" valign="top" align="center">
-          <a href="product.jsp?"><img src="images/product/${product.smallImg}" border="0"/></a>
+          <a href="product.jsp?id=${product.id}"><img src="images/product/${product.smallImg}" border="0"/></a>
           </td>
           <td width="80%">
-          <a href="product.asp?" class="productName">${product.name}</a>
+          <a href="product.jsp?id=${product.id }" class="productName">${product.name}</a>
            
             <!-- 判断是否显示折扣图标开始 -->
             <c:if test="${product.hotDeal}">            
@@ -120,7 +120,11 @@
             </c:if>
             <!-- 判断是否显示折扣图标结束-->
             
-            　<a href="#"><img border=0 src="images/addtocart.gif" width="30" height="18" alt="添加到购物车"></A></td>
+            　                   <a href="#">
+                    <img border=0 src="images/addtocart.gif" width="30" height="18" alt="添加到购物车">
+              </a>
+              
+            </td>
         </tr>
         <tr> 
           <td width="80%"> 
@@ -206,11 +210,13 @@
             本类推荐商品 ::.</td>
         </tr>
         
+        <c:forEach items="${commendProductList}" var="product">
         <tr> 
           <td width="8%" height="17" valign="top"><img src="images/category/square.gif" width="9" height="9"></td>
-          <td height="17"><a href="product.asp?" class="commend">${ProductName}</a>
+          <td height="17"><a href="product.jsp?id=${product.id }" class="commend">${product.name }</a>
 		  </td>
         </tr>
+        </c:forEach>
         
         <tr> 
           <td colspan="2">&nbsp;</td>
@@ -223,11 +229,14 @@
             本类畅销排行 ::.</td>
         </tr>
         
+        <c:forEach items="${bestSellProductList }" var="product" >
+                
         <tr> 
           <td width="8%" height="17" valign="top"><img src="images/category/square.gif" width="9" height="9"></td>
-          <td height="17"><a href="product.asp?" class="bestsell">${ProductName}</a></td>
+          <td height="17"><a href="product.jsp?id=${product.id }" class="bestsell">${product.name}</a></td>
         </tr>
         
+        </c:forEach>
         <tr> 
           <td colspan="2">&nbsp;</td>
         </tr>

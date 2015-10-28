@@ -79,43 +79,68 @@ public class SubcategoryAction {
 
 		// 将子类别对象保存在JSP的内置对象中，以便在JSP中使用
 		this.req.setAttribute("subCategory", subCategory);
-		
-		//根据分页条件获取产品的列表信息
-		//String sql="select count(id) from product where subCategoryId= " +this.id;
-		int totalRows=JdbcUtil.queryTotalRows("product", "id","subCategoryId ="+this.id);
-		String pageRows= this.req.getServletContext().getInitParameter("pageRows");
-		
-		Pager pager=new Pager(totalRows,pageRows!=null ? Integer.parseInt(pageRows):3);
-		
-		//设置当前页号
+
+		// 根据分页条件获取产品的列表信息
+		// String sql="select count(id) from product where subCategoryId= "
+		// +this.id;
+		int totalRows = JdbcUtil.queryTotalRows("product", "id", "subCategoryId =" + this.id);
+		String pageRows = this.req.getServletContext().getInitParameter("pageRows");
+
+		Pager pager = new Pager(totalRows, pageRows != null ? Integer.parseInt(pageRows) : 3);
+
+		// 设置当前页号
 		pager.setCurrentPage(this.currentPage);
-		
+
 		String sql = "select top " + pager.getPageRows()
-		+ " id,name,smallImg,description, price,listPrice,hotDeal from product where subCategoryId="+this.id+" and id not in( select top "
-		+ pager.getFirstRow() + " id from product where subCategoryId="+this.id+")";
-		
-		List<Product>productList=new ArrayList<Product>(pager.getPageRows());
-		objectList=JdbcUtil.queryForObjectList(sql);
-		for(Object[] objects:objectList){
-			
-			Product p=new Product();
-			
-			p.setId((String)objects[0]);
-			p.setName((String)objects[1]);
-			p.setSmallImg((String)objects[2]);
-			p.setDescription((String)objects[3]);
-			p.setPrice((java.math.BigDecimal)objects[4]);
-			p.setListPrice((java.math.BigDecimal)objects[5]);
-			p.setHotDeal((Boolean)objects[6]);
-			
+				+ " id,name,smallImg,description, price,listPrice,hotDeal from product where subCategoryId=" + this.id
+				+ " and id not in( select top " + pager.getFirstRow() + " id from product where subCategoryId="
+				+ this.id + ")";
+
+		List<Product> productList = new ArrayList<Product>(pager.getPageRows());
+		objectList = JdbcUtil.queryForObjectList(sql);
+		for (Object[] objects : objectList) {
+
+			Product p = new Product();
+
+			p.setId((String) objects[0]);
+			p.setName((String) objects[1]);
+			p.setSmallImg((String) objects[2]);
+			p.setDescription((String) objects[3]);
+			p.setPrice((java.math.BigDecimal) objects[4]);
+			p.setListPrice((java.math.BigDecimal) objects[5]);
+			p.setHotDeal((Boolean) objects[6]);
+
 			productList.add(p);
 		}
-		
+
 		this.req.setAttribute("pager", pager);
 		this.req.setAttribute("productList", productList);
 
-		System.out.println(productList.size());
-		
+		// 本类推荐商品
+		sql = "select top 10 id,name from product where commend=1 and subCategoryId=" + this.id;
+		objectList = JdbcUtil.queryForObjectList(sql);
+		List<Product> commendProductList = new ArrayList<Product>();
+		for (Object[] objects : objectList) {
+
+			Product p = new Product();
+			p.setId((String) objects[0]);
+			p.setName((String) objects[1]);
+			commendProductList.add(p);
+		}
+		this.req.setAttribute("commendProductList", commendProductList);
+		// 本类畅销商品
+		sql = "select top 10 id,name from product where subCategoryId=" + this.id +"order by sell desc";
+		objectList = JdbcUtil.queryForObjectList(sql);
+		List<Product> bestSellProductList = new ArrayList<Product>();
+		for (Object[] objects : objectList) {
+			
+			Product p = new Product();
+			p.setId((String) objects[0]);
+			p.setName((String) objects[1]);
+			bestSellProductList.add(p);
+		}
+		this.req.setAttribute("bestSellProductList", bestSellProductList);
+
 		return result;
 	}
 
