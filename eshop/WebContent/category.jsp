@@ -78,26 +78,24 @@
         
         <c:forEach items="${category.children}" var="subCategory" varStatus="status" >
         
-        <c:if test="${status.count % 4==0 }">
-            <tr  valign="top"> 
+        <c:if test="${status.index % 4==0 }">
+            
+            <tr  valign="top">
+           
+             
         </c:if>
         
-        
-          
-          <c:forEach begin="0" end="0"  >
-          
           <td> 
               <img src="images/category/square.gif" width="9" height="9">
               <a href="subcategory.jsp?" class="subcate">${subCategory.name}</a>
           </td>
-         
-          </c:forEach>
           
-          <c:if test="${status.count % 4==0 }">
-          
-             </tr>
-
-          </c:if>
+        <c:if test="${status.count % 4==0 }">
+        
+            </tr>
+           
+             
+        </c:if>
         
         </c:forEach>
         
