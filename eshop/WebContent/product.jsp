@@ -53,7 +53,7 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td width="50%">¡¡
-            <a href="index.jsp" class="red">Ê×Ò³</a> &gt; <a href="category.jsp?" class="red" >${CategoryName}</a> &gt; <a href="subcategory.jsp?" class="red">${SubCategoryName}</a>
+            <a href="default.asp" class="red">Ê×Ò³</a> &gt; <a href="category.jsp?" class="red" >${CategoryName}</a> &gt; <a href="subcategory.jsp?" class="red">${SubCategoryName}</a>
             </td>
             <td width="50%" valign="middle" align="center"> 
               <select name="mnuCategory">
