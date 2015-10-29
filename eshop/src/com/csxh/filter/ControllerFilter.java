@@ -12,12 +12,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import com.csxh.action.CartAction;
 import com.csxh.action.CategoryAction;
 import com.csxh.action.IndexAction;
 import com.csxh.action.ProductAction;
 import com.csxh.action.RequestAware;
 import com.csxh.action.SubcategoryAction;
 import com.csxh.model.ActionContext;
+import com.csxh.model.CartItem;
 import com.csxh.util.Log4jUtil;
 
 /**
@@ -151,11 +153,11 @@ public class ControllerFilter implements Filter {
 
 			ProductAction action = new ProductAction();
 
-			if(action instanceof RequestAware){
-				RequestAware aware=(RequestAware)action;
+			if (action instanceof RequestAware) {
+				RequestAware aware = (RequestAware) action;
 				aware.setRequest(req);
 			}
-			
+
 			// 如果使用框架，则一般是使用反射自动地将请求参数传给Action对象的属性
 			String s = req.getParameter("id");
 
@@ -164,7 +166,44 @@ public class ControllerFilter implements Filter {
 			s = req.getParameter("currentPage");
 
 			action.setCurrentPage(s == null ? 1 : Integer.parseInt(s));
+
+			Log4jUtil.info("处理业务数据及逻辑操作");
+			String result = action.handle();
+			if ("success".equals(result)) {
+
+				Log4jUtil.info("转向JSP页显示");
+
+				request.getRequestDispatcher(path).forward(request, response);
+
+			} else if ("fail".equals(result)) {
+
+			}
+
+		}
+
+		if ("cart.jsp".equals(path)) {
+
+			CartAction action = new CartAction();
+
+			action.setRequest(req);
+
+			CartItem item = new CartItem();
+			String s = req.getParameter("productId");
+			item.setProductId(s);
+			s = req.getParameter("productName");
+			item.setProductName(s);
+			s = req.getParameter("productPrice");
+			item.setProductPrice(Double.parseDouble(s));
+			s = req.getParameter("productCount");
+			item.setProductCount(Integer.parseInt(s));
+
+			action.setItem(item);
 			
+			//操作
+			s=req.getParameter("op");
+			
+			action.setOp(s==null ? CartAction.Add : s);
+
 			Log4jUtil.info("处理业务数据及逻辑操作");
 			String result = action.handle();
 			if ("success".equals(result)) {

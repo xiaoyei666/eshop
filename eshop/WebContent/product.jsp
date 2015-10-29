@@ -93,8 +93,17 @@
               <img src="images/hotprice.gif" width="24" height="24"> 
               </c:if>
               <!-- 判断是否显示热销标识:price not eq 0 -->
-              <input type="image" border="0" name="imageField" src="images/addtocart.gif" width="30" height="18" alt="加入购物车">
+              <input type="image" border="0"  src="images/addtocart.gif" width="30" height="18" alt="加入购物车">
               <input type="hidden" name="productId" value="${product.id}">
+              <input type="hidden" name="productName" value="${product.id}">
+              <c:if test="${!(product.listPrice eq 0) }">
+              <input type="hidden" name="productPrice" value="${product.listPrice}">
+              </c:if>              
+              <c:if test="${!(product.price eq 0) }">
+              <input type="hidden" name="productPrice" value="${product.price}">
+              </c:if>
+              <input type="hidden" name="productCount" value="1">
+              
             </form>
           </td>
         </tr>
