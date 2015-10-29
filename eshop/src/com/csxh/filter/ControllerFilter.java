@@ -188,23 +188,35 @@ public class ControllerFilter implements Filter {
 			action.setRequest(req);
 
 			CartItem item = new CartItem();
+			
 			String s = req.getParameter("productId");
-			item.setProductId(s);
+			if(s!=null){				
+				item.setProductId(s);
+			}
 			s = req.getParameter("productName");
-			item.setProductName(s);
+			if(s!=null){				
+				item.setProductName(new String( s.getBytes("iso-8859-1"),"gb2312" ));
+			}
 			s = req.getParameter("productPrice");
-			item.setProductPrice(Double.parseDouble(s));
+			if(s!=null){
+				
+				item.setProductPrice(Double.parseDouble(s));
+			}
 			s = req.getParameter("productCount");
-			item.setProductCount(Integer.parseInt(s));
+			if(s!=null){				
+				item.setProductCount(Integer.parseInt(s));
+			}
 
 			action.setItem(item);
+			
+			//Log4jUtil.info(item.toString());
 			
 			//操作
 			s=req.getParameter("op");
 			
 			action.setOp(s==null ? CartAction.Add : s);
 
-			Log4jUtil.info("处理业务数据及逻辑操作");
+			
 			String result = action.handle();
 			if ("success".equals(result)) {
 

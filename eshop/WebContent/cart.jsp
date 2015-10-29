@@ -61,7 +61,8 @@
 <table width="760" border="0" cellspacing="0" cellpadding="0" align="center">
   <tr> 
     <td> 
-    <img src="images/yourcart.gif" width="190" height="30"> 
+    <img src="images/yourcart.gif" width="190" height="30">
+     
       <form name="form1" method="post" action="cart.jsp?op=${op}">
         <table width="98%" border="0" cellspacing="2" cellpadding="2" align="center">
           <tr valign="middle" align="center" bgcolor="#E1E1E1"> 
@@ -73,17 +74,17 @@
           </tr>
 
          <!-- 购物项列表开始 --> 
-         
+         <c:forEach items="${cart.itemList }" var="item" >
           <tr align="center" valign="middle"> 
-            <td width="27%">${item.productID}</td>
+            <td width="27%">${item.productId}</td>
             <td width="34%">${item.productName}</td>
-            <td width="11%">${item.price}元</td>
+            <td width="11%">${item.productPrice}元</td>
             <td width="10%"> 
-              <input type="text" name="textfield" size="8" maxlength="8" value="${item.count}">
+              <input type="text" name="textfield" size="8" maxlength="8" value="${item.productCount}">
             </td>
-            <td width="18%">${item.price * item.count }元</td>
+            <td width="18%">${item.productPrice * item.productCount }元</td>
           </tr>
-          
+          </c:forEach>
          <!-- 购物项列表结束 -->
           
           <tr align="center" valign="middle"> 

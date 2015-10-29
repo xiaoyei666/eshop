@@ -61,16 +61,32 @@ public class JdbcUtil {
 	public static int queryTotalRows(String tableName, String pramaryKey) {
 		int totalRows = 0;
 		String sql = "select count(" + pramaryKey + ") from " + tableName;
+		ResultSet rs=null;
+		Statement stmt=null;
+		Connection cnn=null;
 		try {
-			Connection cnn = openConnection();
-			Statement stmt = cnn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			cnn = openConnection();
+			stmt = cnn.createStatement();
+			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				totalRows = rs.getInt(1);
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}try {
+			if (rs != null) {
+				rs.close();
+			}
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (cnn != null) {
+				cnn.close();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,10 +98,13 @@ public class JdbcUtil {
 		int totalRows = 0;
 		where = where.replace("where", "");
 		String sql = "select count(" + pramaryKey + ") from " + tableName + " where " + where;
+		ResultSet rs=null;
+		Statement stmt=null;
+		Connection cnn=null;
 		try {
-			Connection cnn = openConnection();
-			Statement stmt = cnn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			cnn = openConnection();
+			stmt = cnn.createStatement();
+			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				totalRows = rs.getInt(1);
 			}
@@ -95,6 +114,21 @@ public class JdbcUtil {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {// 该块能够在返回时提前执行，无论是否发生异常，都会执行该块中的代码
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (cnn != null) {
+					cnn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return totalRows;
 	}
