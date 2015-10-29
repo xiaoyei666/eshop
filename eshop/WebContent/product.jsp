@@ -56,7 +56,7 @@
              <a href="index.jsp" class="red">首页</a> 
              &gt; <a href="category.jsp?id=${product.category.id}" class="red" >${product.category.name}</a>
              &gt; <a href="subcategory.jsp?id=${product.subCategory.id }" class="red">${product.subCategory.name}</a>
-           
+           &gt; 产品
             </td>
             <td width="50%" valign="middle" align="center"> 
               <select name="mnuCategory">
@@ -136,43 +136,57 @@
                 <td width="26%" height="17">&gt;&gt; <a href="#" onClick="MM_openBrWindow('review.jsp','','scrollbars=yes,width=500,height=300')">我要评论</a> 
                   &lt;&lt;</td>
               </tr>
-              
+              <!-- 评论开始 -->
+              <c:forEach items="${reviewList }" var="review">
               <tr> 
-                <td bgcolor="#E4E4E4"><a href="mailto:${ReviewEmail}">${ReviewName}</a>
+                <td bgcolor="#E4E4E4"><a href="mailto:${review.email}">${review.name}</a>
                 </td>
-                <td colspan="2" align="center" bgcolor="#E4E4E4">${ReviewTime}</td>
+                <td colspan="2" align="center" bgcolor="#E4E4E4">${review.time}</td>
               </tr>
               <tr> 
-                <td colspan="3">${ReviewContent}</td>
+                <td colspan="3">${review.content}</td>
               </tr>
               <tr> 
                 <td colspan="3" height="1" bgcolor="#E1E1E1"></td>
               </tr>
+              </c:forEach>
+              <!-- 评论结束 -->
               
               <tr align="center"> 
                 <td colspan="3"> 
                   <table border="0" width="50%">
                     <tr> 
                       <td width="23%" align="center"> 
-                        
-                        <a href="" class="navi">第一页</a> 
+                        <c:if test="${pager.pageCount gt 0 }">
+                           <a href="product.jsp?id=${product.id}&currentPage=1" class="navi">第一页</a> 
+                        </c:if>
                       </td>
                       <td width="31%" align="center"> 
-                        <a href="" class="navi">前一页</a> 
+                        <c:if test="${pager.hasPrev }">                  
+                          <a href="product.jsp?id=${product.id}&currentPage=${pager.currentPage-1}" class="navi">前一页</a> 
+                        </c:if>
                       </td>
                       <td width="23%" align="center"> 
-                        <a href="" class="navi">下一页</a> 
+                        <c:if test="${pager.hasNext }">                  
+                         <a href="product.jsp?id=${product.id}&currentPage=${pager.currentPage+1}" class="navi">下一页</a> 
+                        </c:if>
                       </td>
                       <td width="23%" align="center"> 
-                        <a href="" class="navi">最末页</a> 
+                        <c:if test="${pager.pageCount gt 0 }">                  
+                         <a href="product.jsp?id=${product.id}&currentPage=${pager.pageCount}" class="navi">最末页</a> 
+                        </c:if>
                       </td>
                     </tr>
                   </table>
                   <!-- 如果有评论 -->
-                  第${review_first} 到${review_last}条评论，共${review_total}条 
+                  <c:if test="${fn:length(reviewList) gt 0 }">
+                  第${pager.firstRow+1} 到${pager.lastRow+1}条评论，共${pager.totalRows}条 
+                  </c:if>
                   <!-- 如果有评论 -->
                   <!-- 如果没有评论 -->
+                  <c:if test="${fn:length(reviewList) eq 0 }">
                   该商品目前没有任何评论。 
+                  </c:if>
                   <!-- 如果没有评论 -->
                 </td>
               </tr>
