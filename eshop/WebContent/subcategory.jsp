@@ -130,16 +130,15 @@
           <td width="80%"> 
             <!-- 是否显示原价：条件是price not eq 0 -->
             <c:if test="${product.price != 0 }">            
-            原价：<span class="hotPrice">${product.price}</span>元　现价： 
+            原价：<span class="hotPrice">${product.price}</span>元 
             </c:if>
             <!-- 是否显示原价 -->
             
            <!-- 是否显示价格：条件是price eq 0 -->
            <c:if test="${product.price eq 0 }">
-            价格： 
+            现价：${product.listPrice}元　
            </c:if>
             <!-- 是否显示价格：条件是price eq 0 -->
-          ${product.listPrice}元　
           
           </td>
         </tr>

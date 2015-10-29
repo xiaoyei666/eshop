@@ -1,11 +1,9 @@
 package com.csxh.action.test;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import com.csxh.action.IndexAction;
+import com.csxh.util.JdbcUtil;
 
 public class IndexActionTest {
 
@@ -19,6 +17,13 @@ public class IndexActionTest {
 		//IndexAction action=new IndexAction();
 		
 		//Assert.assertEquals("success", action.handle());
+		
+		String sql="SELECT [pubDate] FROM [product] ";
+		
+		Object[] objects=JdbcUtil.queryForObject(sql);
+					
+			System.out.println(objects);
+		
 	}
 
 }

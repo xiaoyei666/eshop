@@ -158,21 +158,21 @@
           <!-- 最新产品开始 -->
           
             <table width="100%" border="0" cellspacing="2" cellpadding="2">
-              <c:forEach items="${newProductList}" var="newProduct">
+              <c:forEach items="${newProductList}" var="product">
               
               <tr> 
                 <td rowspan="3" width="25%" align="center">
-                	<a href="product.jsp?"><img src="images/product/${newProduct.smallImg}" border="0"></a>
+                	<a href="product.jsp?id=${product.id }"><img src="images/product/${product.smallImg}" border="0"></a>
                 </td>
                 <td width="75%">
-                	<a href="product.jsp?" class="productName">${newProduct.name}</a>
+                	<a href="product.jsp?id=${product.id }" class="productName">${product.name}</a>
                 </td>
               </tr>
               <tr> 
-                <td width="75%" class="a">${newProduct.author}</td>
+                <td width="75%" class="a">${product.author}</td>
               </tr>
               <tr> 
-                <td width="75%">${newProduct.description}</td>
+                <td width="75%">${product.description}</td>
               </tr>
 
               </c:forEach>
@@ -196,25 +196,25 @@
           <!--推荐商品开始 -->
             <table width="100%" border="0" cellspacing="2" cellpadding="2" height="52">
               
-              <c:forEach items="${commendProductList }" var="commendProduct">
+              <c:forEach items="${commendProductList }" var="product">
               
               <tr> 
                 <td width="75%" align="right">
-                	<a href="product.jsp?" class="productName">${commendProduct.name}</a>
+                	<a href="product.jsp?id=${product.id }" class="productName">${product.name}</a>
                 </td>
                 <td rowspan="3" align="center">
-	                <a href="product.asp?">
-	                	<img src="images/product/${commendProduct.smallImg}" border="0">
+	                <a href="product.asp?id=${product.id }">
+	                	<img src="images/product/${product.smallImg}" border="0">
 	                </a> 
                 </td>
               </tr>
               <tr> 
-                <td width="75%" align="right">${Author}</td>
+                <td width="75%" align="right">${product.author}</td>
               </tr>
               <tr> 
                 <td width="75%"> 
                 
-                  ${commendProduct.description}
+                  ${product.description}
                 
                 </td>
               </tr>
@@ -240,26 +240,26 @@
           <!-- 折扣商品开始-->
             <table width="100%" border="0" cellspacing="2" cellpadding="2">
               
-              <c:forEach items="${discountProductList }" var="discountProduct">
+              <c:forEach items="${discountProductList }" var="product">
               
               <tr> 
                 <td rowspan="3" width="18%" align="center">
-                	<a href="product.asp?"><img src="images/product/${discountProduct.smallImg}" border="0"></a>
+                	<a href="product.jsp?id=${product.id }"><img src="images/product/${product.smallImg}" border="0"></a>
                 </td>
                 <td colspan="2">
-                	<a href="product.asp?" class="productName">${discountProduct.name}</a>
+                	<a href="product.jsp?id=${product.id }" class="productName">${product.name}</a>
                 </td>
               </tr>
               <tr> 
-                <td colspan="2">${Author}</td>
+                <td colspan="2">${product.author}</td>
               </tr>
               <tr> 
-                <td width="20%">原价：<span class="hotPrice">${discountProduct.price}</span>元</td>
-                <td width="80%">现价：${discountProduct.listPrice}元</td>
+                <td width="20%">原价：<span class="hotPrice">${product.price}</span>元</td>
+                <td width="80%">现价：${product.listPrice}元</td>
               </tr>
               <tr> 
                 <td colspan="3"> 
-                  ${discountProduct.description}
+                  ${product.description}
                 </td>
               </tr>
               
@@ -289,12 +289,14 @@
                 <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
                 <!-- 今日热点开始 -->
                 
-                <c:forEach items="${hotProductList}" var="p">
+                <c:forEach items="${hotProductList}" var="product">
                 
                     <tr> 
-                      <td width="10%" align="center" valign="top"><img src="images/board_arrow_u.gif" width="17" height="13"></td>
+                      <td width="10%" align="center" valign="top">
+                      <img src="images/board_arrow_u.gif" width="17" height="13"></td>
                       <td width="90%" align="left" valign="middle">
-                      <a href="product.jsp?" class="red">${p.name}</a></td>
+                      	<a href="product.jsp?id=${product.id }" class="red">${product.name}</a>
+                      </td>
                     </tr>
                 
                 
@@ -324,14 +326,14 @@
                   <table width="100%" border="0" cellspacing="0" cellpadding="2">
                   <!--销售排行开始-->
                    
-                   <c:forEach items="${sellProductList}" var="sellProduct">
+                   <c:forEach items="${sellProductList}" var="product">
                    
                     <tr> 
                       <td width="10%" align="center" valign="top">
                       	<img src="images/board_arrow_u.gif" width="17" height="13">
                       </td>
                       <td width="90%" align="left" valign="middle">
-                      	<a href="product.asp?" class="red">${sellProduct.name}</a>
+                      	<a href="product.jsp?id=${product.id }" class="red">${product.name}</a>
                       </td>
                     </tr>
                     

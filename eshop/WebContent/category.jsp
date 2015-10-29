@@ -87,7 +87,7 @@
         
           <td> 
               <img src="images/category/square.gif" width="9" height="9">
-              <a href="subcategory.jsp?" class="subcate">${subCategory.name}</a>
+              <a href="subcategory.jsp?id=${subCategory.id }" class="subcate">${subCategory.name}</a>
           </td>
           
         <c:if test="${status.count % 4==0 }">

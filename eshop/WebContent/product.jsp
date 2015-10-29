@@ -53,8 +53,10 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td width="50%">　
-
-            <a href="index.jsp" class="red">首页</a> &gt; <a href="category.jsp?" class="red" >${CategoryName}</a> &gt; <a href="subcategory.jsp?" class="red">${SubCategoryName}</a>
+             <a href="index.jsp" class="red">首页</a> 
+             &gt; <a href="category.jsp?id=${product.category.id}" class="red" >${product.category.name}</a>
+             &gt; <a href="subcategory.jsp?id=${product.subCategory.id }" class="red">${product.subCategory.name}</a>
+           
             </td>
             <td width="50%" valign="middle" align="center"> 
               <select name="mnuCategory">
@@ -85,34 +87,39 @@
           <img src="images/product/${product.bigImg}"></td>
           <td width="82%" class="productName"> 
             <form name="cartform" method="post" action="cart.jsp">
-              ${cart.productName} 
-              <!-- 判断是否显示热销标识:price not eq 0 -->            
+              ${product.name} 
+              <!-- 判断是否显示热销标识:price not eq 0 -->  
+              <c:if test="${!(product.price eq 0) }">          
               <img src="images/hotprice.gif" width="24" height="24"> 
+              </c:if>
               <!-- 判断是否显示热销标识:price not eq 0 -->
               <input type="image" border="0" name="imageField" src="images/addtocart.gif" width="30" height="18" alt="加入购物车">
-              <input type="hidden" name="productId" value="${cart.productId}">
+              <input type="hidden" name="productId" value="${product.id}">
             </form>
           </td>
         </tr>
         <tr> 
-          <td width="82%">${Supplier}　${author}</td>
+          <td width="82%">${product.supplier}　${product.author}</td>
         </tr>
         <tr> 
-          <td width="82%">出版日期：${pubDate}　${ProductID}</td>
+          <td width="82%">出版日期：${product.pubDate}　${product.id}</td>
         </tr>
         <tr> 
           <td width="82%"> 
             <!-- 判断是否显示原价[price not eq 0] -->
-            原价：<span class="hotPrice">${Price}</span>元　现价： 
+            <c:if test="${!(product.price eq 0) }">
+            原价：<span class="hotPrice">${product.price}</span>元　
+            </c:if> 
             <!-- 判断是否显示原价[price not eq 0] -->
-            <!-- 判断是否显示原价[price not eq 0] -->
-            价格： 
-            <!-- 判断是否显示原价[price not eq 0] -->
-            ${ListPrice}元
+            <c:if test="${!(product.listPrice eq 0) }">
+            <!-- 判断是否显示原价[listPrice not eq 0] -->
+            现价： ${product.listPrice}元
+            </c:if>
+            <!-- 判断是否显示原价[listPrice not eq 0] -->
             </td>
         </tr>
         <tr> 
-          <td colspan="2">${Description}</td>
+          <td colspan="2">${product.description}</td>
         </tr>
       </table>
       <table width="98%" border="0" cellspacing="0" cellpadding="0">
@@ -126,7 +133,7 @@
               <tr> 
                 <td width="34%" height="17">&nbsp;</td>
                 <td width="40%" height="17">&nbsp;</td>
-                <td width="26%" height="17">&gt;&gt; <a href="#" onClick="MM_openBrWindow('review.asp','','scrollbars=yes,width=500,height=300')">我要评论</a> 
+                <td width="26%" height="17">&gt;&gt; <a href="#" onClick="MM_openBrWindow('review.jsp','','scrollbars=yes,width=500,height=300')">我要评论</a> 
                   &lt;&lt;</td>
               </tr>
               
