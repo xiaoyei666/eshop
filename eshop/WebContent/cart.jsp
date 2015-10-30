@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <html>
 <head>
 <title>网上商城</title>
@@ -51,7 +52,7 @@
     <td bgcolor="#FFCC66" height="22"> 
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr> 
-          <td>　<a href="default.asp" class="red">首页</a> &gt; 购物车</td>
+          <td>　<a href="index.jsp" class="red">首页</a> &gt; 购物车</td>
           <td>&nbsp;</td>
         </tr>
       </table>
@@ -63,7 +64,7 @@
     <td> 
     <img src="images/yourcart.gif" width="190" height="30">
      
-      <form name="form1" method="post" action="cart.jsp?op=${op}">
+      <form name="form1" method="post" action="cart.jsp">
         <table width="98%" border="0" cellspacing="2" cellpadding="2" align="center">
           <tr valign="middle" align="center" bgcolor="#E1E1E1"> 
             <td height="24" width="27%"><b>商品编号</b></td>
@@ -100,11 +101,13 @@
             <td></td>
             <td colspan="2">
               <input type="image" border="0" name="imageField" src="images/updatecart.gif" width="87" height="24">
-              　　　<a href=""><img border=0 src="images/emptycart.gif" width="87" height="24"></a>
+              　　　<a href="cart.jsp?op=clean">
+              <img border=0 src="images/emptycart.gif" width="87" height="24"></a>
               </td>
-            <td colspan="2"><a href="userlogin.jsp"><img src="images/check.gif" width="120" height="35" border="0"></a></td>
+            <td colspan="2"><a href="order.jsp"><img src="images/check.gif" width="120" height="35" border="0"></a></td>
           </tr>
         </table>
+        
       </form>
     </td>
   </tr>

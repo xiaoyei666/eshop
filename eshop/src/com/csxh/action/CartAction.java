@@ -14,6 +14,7 @@ public class CartAction {
 	public static final String Update = "update";
 	public static final String Find = "find";
 	public static final String Clean = "clean";
+	public static final String List = "list";
 
 	HttpServletRequest req;
 
@@ -35,16 +36,17 @@ public class CartAction {
 		String result = "success";
 
 		HttpSession session = this.req.getSession();
+		Object o=null;
 		
 		
 		String ip = this.req.getRemoteHost();
 		
-		Object o=null;
 		Cart cart;
 		
 		//在已经登录时，通过user来缓存购物
 		o=session.getAttribute("user");
-		if(o==null){			
+		boolean isLogin=o!=null;
+		if(!isLogin){			
 			
 //			cart = new Cart();
 //			session.setAttribute("user", cart);
@@ -60,8 +62,18 @@ public class CartAction {
 			}
 
 		}else{
-			session.removeAttribute(ip);
-			cart=(Cart)o;
+			//当已经登录，如果是从login.jsp过来,则op=list
+			//当已经登录，如果是从product.jsp过事，则op=add
+			o=session.getAttribute("cart");
+			if(o==null){
+				cart=new Cart();
+				session.setAttribute("cart", cart);
+			}else{
+				cart=(Cart)o;
+			}
+			
+			//此时的操作为列出已经选择好的购物车，而不是增、删除、改操作
+			
 		}
 		
 		//System.out.println(this.req.getHeader("referer"));
@@ -83,12 +95,19 @@ public class CartAction {
 			cart.clean();
 			
 		}else {
-
+			this.req.setAttribute("cart", cart);
+		}
+		
+		//判断用户是否登录，如果不有登录，则返回 "login"，告诉过滤器转向登录页，而不是购物页
+		if(!isLogin){
+			
+			return "login";
+			
+		}else{			
+			this.req.setAttribute("cart", cart);
+			return "success";
 		}
 
-		this.req.setAttribute("cart", cart);
-
-		return result;
 	}
 
 	private String op;

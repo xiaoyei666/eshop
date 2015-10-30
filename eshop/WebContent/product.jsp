@@ -103,6 +103,7 @@
               <input type="hidden" name="productPrice" value="${product.listPrice}">
               </c:if>
               <input type="hidden" name="productCount" value="1">
+              <input type="hidden" name="op" value="add">
               
             </form>
           </td>

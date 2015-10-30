@@ -120,7 +120,7 @@
             </c:if>
             <!-- 判断是否显示折扣图标结束-->
             
-            　                   <a href="cart.jsp?productId=${product.id }&productName=${product.name }&productPrice=${product.price }&productCount=1">
+            　                   <a href="cart.jsp?productId=${product.id }&productName=${product.name }&productPrice=${product.price }&productCount=1&op=add">
                     <img border=0 src="images/addtocart.gif" width="30" height="18" alt="添加到购物车">
               </a>
               

@@ -11,15 +11,18 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.csxh.action.CartAction;
 import com.csxh.action.CategoryAction;
 import com.csxh.action.IndexAction;
+import com.csxh.action.LoginAction;
 import com.csxh.action.ProductAction;
 import com.csxh.action.RequestAware;
 import com.csxh.action.SubcategoryAction;
 import com.csxh.model.ActionContext;
 import com.csxh.model.CartItem;
+import com.csxh.model.Customer;
 import com.csxh.util.Log4jUtil;
 
 /**
@@ -49,6 +52,7 @@ public class ControllerFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
 
 		String path = req.getServletPath();
 		path = path.substring(1);
@@ -209,12 +213,12 @@ public class ControllerFilter implements Filter {
 
 			action.setItem(item);
 			
-			//Log4jUtil.info(item.toString());
+			Log4jUtil.info(item.toString());
 			
 			//操作
 			s=req.getParameter("op");
 			
-			action.setOp(s==null ? CartAction.Add : s);
+			action.setOp(s==null ? CartAction.List : s);
 
 			
 			String result = action.handle();
@@ -224,10 +228,44 @@ public class ControllerFilter implements Filter {
 
 				request.getRequestDispatcher(path).forward(request, response);
 
-			} else if ("fail".equals(result)) {
-
+			} else if ("login".equals(result)) {
+				
+				res.sendRedirect("userlogin.jsp");
+				
 			}
 
+		}
+		
+		if("userlogin.jsp".equals(path)){
+			
+			LoginAction action=new LoginAction();
+			
+			action.setRequest(req);
+			
+			String s=req.getParameter("email");
+			if(s!=null){
+			   	
+				//中处理提交的请求，而不处理转发的请求
+				Customer c=new Customer();
+				c.setEmail(s);
+				s=req.getParameter("password");
+				c.setPassword(s);
+				action.setCustomer(c);
+				//在此会有一些验证代码
+				boolean b=action.validate();
+				
+				String result=action.handle();
+				if("index".equals(result)){
+					res.sendRedirect("index.jsp");
+				}else if("cart".equals(result)){
+					res.sendRedirect("cart.jsp?op=list");
+				}else if("input".equals(result)){
+					res.sendRedirect("userlogin.jsp");
+				}else{
+					res.sendRedirect("loginfail.jsp");					
+				}
+			}
+			
 		}
 
 		// pass the request along the filter chain
