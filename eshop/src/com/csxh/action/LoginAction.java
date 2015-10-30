@@ -53,6 +53,9 @@ public class LoginAction {
 					
 		}else{
 			//登录成功，但还没有购物
+			//此时已经购物了，将购物车对象转存到以user的名下
+			session.setAttribute("user", customer);
+			session.setAttribute("cart", new Cart());
 			return "index";
 		}
 		

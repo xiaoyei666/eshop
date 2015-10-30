@@ -18,7 +18,7 @@ public class IndexActionTest {
 		
 		//Assert.assertEquals("success", action.handle());
 		
-		String sql="SELECT [pubDate] FROM [product] ";
+		String sql="SELECT [unitWeight] FROM [orderDetail] ";
 		
 		Object[] objects=JdbcUtil.queryForObject(sql);
 					
