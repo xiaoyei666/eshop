@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import com.csxh.model.Cart;
 import com.csxh.model.Customer;
 import com.csxh.util.JdbcUtil;
+import com.csxh.util.ServletSessionUtil;
 
 public class LoginAction {
 
@@ -39,23 +40,10 @@ public class LoginAction {
 			return "fail";					
 		}
 		
-		//如果通过了，则判断是否存在购物车对象
-		HttpSession session = this.req.getSession();
-		Object o=session.getAttribute(this.req.getRemoteHost());
-		if(o!=null){
-			
-			//此时已经购物了，将购物车对象转存到以user的名下
-			session.setAttribute("user", customer);
-			session.setAttribute("cart", o);
-			//删除以前保存在ip名下的购物车
-			session.removeAttribute(this.req.getRemoteHost());
+		boolean b=ServletSessionUtil.loginSuccess(this.req, customer);
+		if(b){
 			return "cart";
-					
 		}else{
-			//登录成功，但还没有购物
-			//此时已经购物了，将购物车对象转存到以user的名下
-			session.setAttribute("user", customer);
-			session.setAttribute("cart", new Cart());
 			return "index";
 		}
 		

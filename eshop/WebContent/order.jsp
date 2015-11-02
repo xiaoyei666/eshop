@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+
+
 <html>
 <head>
 <title>мЬиоилЁг</title>
@@ -11,6 +13,8 @@
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="#FFFFFF" text="#000000" topmargin="2">
+
+
 <table width="760" border="0" cellspacing="0" cellpadding="0" align="center">
   <tr> 
     <td background="images/topback.gif" width="130"><img src="images/sitelogo.gif" height="88"></td>
