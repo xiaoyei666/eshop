@@ -1,0 +1,19 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+<constant name="struts.action.extension" value="do,action,jsp"/>
+
+<package name="eshop" namespace="/" extends="struts-default"  >
+
+	<action name="index" class="com.csxh.action.IndexAction" method="handle">
+	      <result name="success" >index.jsp</result>
+	</action>
+	
+
+</package>
+
+
+</struts>

@@ -75,7 +75,7 @@
           </tr>
 
          <!-- 购物项列表开始 --> 
-         <c:forEach items="${cart.itemList }" var="item" >
+         <c:forEach items="${ sessionScope.ctx.cart.itemList }" var="item" >
           <tr align="center" valign="middle"> 
             <td width="27%">${item.productId}</td>
             <td width="34%">${item.productName}</td>

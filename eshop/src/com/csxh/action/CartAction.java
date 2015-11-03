@@ -56,7 +56,7 @@ public class CartAction {
 			cart.clean();
 			
 		}else {
-			this.req.setAttribute(ServletSessionUtil.CART, cart);
+			
 		}
 		
 		//判断用户是否登录，如果不有登录，则返回 "login"，告诉过滤器转向登录页，而不是购物页
@@ -65,7 +65,7 @@ public class CartAction {
 			return "login";
 			
 		}else{			
-			this.req.setAttribute(ServletSessionUtil.CART, cart);
+			
 			return "success";
 		}
 

@@ -162,5 +162,14 @@ public class ServletSessionUtil {
 	}
 	
 	// 以下是对象方法，用于在JSP页获取对象的get属性
-
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getCart(){
+		return (T)this.session.getAttribute(ServletSessionUtil.CART);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getUser(){
+		return (T)this.session.getAttribute(ServletSessionUtil.USER);
+	}
 }

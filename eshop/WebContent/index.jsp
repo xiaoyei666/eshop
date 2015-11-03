@@ -11,8 +11,6 @@
 </head>
 <body bgcolor="#FFFFFF" text="#000000" topmargin="2">
 
-${sessionScope.ctx.xxx }
-
 <table width="760" border="0" cellspacing="0" cellpadding="0" align="center">
   <tr> 
     <td width="130" background="images/topback.gif"><img src="images/sitelogo.gif" width="130" height="88"></td>
