@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.csxh.model.Order">
+
+	<select id="findPaymethodList" resultType="paymethod">
+		SELECT
+		id,
+		[name]
+		FROM paymethod
+	</select>
+	<select id="findShippingList" resultType="shipping">
+		SELECT
+		id,
+		[name],
+		fee
+		FROM shipping
+	</select>
+	
+	<select id="findCartItem" parameterType="string" resultType="cartItem">
+		SELECT
+		id as productId,
+		[name] as productName,
+		price as productPrice,
+		unitWeight as productWeight
+		FROM product
+		WHERE id=#{id}
+	</select>
+	
+
+
+</mapper>

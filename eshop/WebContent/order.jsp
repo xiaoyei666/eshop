@@ -70,7 +70,7 @@
     <td width="1" bgcolor="#000000"></td>
     <td align="center" valign="top" width="758"> 
       <p>&nbsp;</p>
-      <span class="productName">${customer.name},您好~！</span><br>
+      <span class="productName">${sessionScope.ctx.user.realname},您好~！</span><br>
       <form name="form1" method="POST" action="">
         <table width="90%" border="0" cellspacing="2" cellpadding="2">
           <tr bgcolor="#E1E1E1"> 
@@ -80,24 +80,27 @@
             <td colspan="3" height="1"></td>
           </tr>
           <!-- 购物的商品列表开始 -->
+          <c:forEach items="${sessionScope.ctx.cart.itemList}" var="item">
+          
           <tr> 
-            <td width="50%"><b>商品编号：</b>${ProductID}</td>
-            <td colspan="2"><b>商品名称：</b>${ProductName}</td>
+            <td width="50%"><b>商品编号：</b>${item.productId}</td>
+            <td colspan="2"><b>商品名称：</b>${item.productName}</td>
           </tr>
           <tr> 
-            <td width="50%"><b>单　　价：</b>${Price}元</td>
-            <td colspan="2"><b>重　　量：</b>${UnitWeight}公斤</td>
+            <td width="50%"><b>单　　价：</b>${item.productPrice}元</td>
+            <td colspan="2"><b>重　　量：</b>${item.productWeight}公斤</td>
           </tr>
           <tr> 
-            <td width="50%"><b>数　　量：</b>${Quantity}</td>
+            <td width="50%"><b>数　　量：</b>${item.productCount}</td>
             <td colspan="2">&nbsp;</td>
           </tr>
           <tr> 
             <td colspan="3" height="1" bgcolor="#999999"></td>
           </tr>
+          </c:forEach>
           <!-- 购物的商品列表结束 -->
           <tr bgcolor="#E1E1E1" valign="middle"> 
-            <td colspan="2">您共购买了${Quantity}个商品，总重为${TotalWeight}公斤，总计费用为：${Total}元。</td>
+            <td colspan="2">您共购买了${fn:length(sessionScope.ctx.cart.itemList)}个商品，总重为${sessionScope.ctx.cart.totalWeight}公斤，总计费用为：${sessionScope.ctx.cart.totalPrice}元。</td>
             <td width="20%" align="center">
             <a href="cart.jsp"><img src="images/updatecart.gif" width="87" height="24" border="0"></a></td>
           </tr>
@@ -112,39 +115,43 @@
           </tr>
           <tr> 
             <td colspan="2"><b>收货人姓名： 
-              <input type="text" name="DeliverName" value="${Name}" class="textbox">
+              <input type="text" name="DeliverName" value="${sessionScope.ctx.user.realname}" class="textbox">
               </b></td>
             <td width="48%"><b>收货人城市： 
-              <input type="text" name="DeliverCity" value="${City}" class="textbox">
+              <input type="text" name="DeliverCity" value="${sessionScope.ctx.user.city}" class="textbox">
               </b></td>
           </tr>
           <tr> 
             <td colspan="2"><b>收货人电话： 
-              <input type="text" name="DeliverPhone" value="${Phone}" class="textbox">
+              <input type="text" name="DeliverPhone" value="${sessionScope.ctx.user.phone}" class="textbox">
               </b></td>
             <td width="48%"><b>收货人邮编： 
-              <input type="text" name="DeliverZip" value="${Zip}" class="textbox">
+              <input type="text" name="DeliverZip" value="${sessionScope.ctx.user.zip}" class="textbox">
               </b></td>
           </tr>
           <tr> 
             <td width="13%"><b>收货人地址： </b></td>
             <td valign="top" colspan="2"><b> 
-              <textarea name="DeliverAddres" cols="50" rows="3" class="textbox">${Address}</textarea>
+              <textarea name="DeliverAddres" cols="50" rows="3" class="textbox">${sessionScope.ctx.user.address}</textarea>
               </b></td>
           </tr>
           <tr> 
             <td valign="top" colspan="2"><b>付款方式： 
-              <select name="PayMethodID">
+              <select name="paymethodId">
                 <!-- 列表选项 -->
-                <option value="${PaymethodID}" >${PaymethodName}</option>
+                <c:forEach items="${paymethodList }" var="paymenthod" >
+                <option value="${paymenthod.id}" >${paymenthod.name}</option>
+                </c:forEach>
                 <!-- 列表选项 -->
 
               </select>
               </b></td>
             <td width="48%"><b>收货方式： 
-              <select name="ShippingID">
+              <select name="shippingId">
                 <!-- 列表选项 -->
-                <option value="${ShippingID}" >${ShipName}</option>
+                <c:forEach items="${shippingList }" var="shipping">
+                <option value="${shipping.id}" >${shipping.name}</option>
+                </c:forEach>
                 <!-- 列表选项 -->
                 
               </select>

@@ -4,14 +4,47 @@
 
 <struts>
 
-<constant name="struts.action.extension" value="do,action,jsp"/>
+
+<constant name="struts.i18n.encoding" value="GB2312" />
+
+<constant name="struts.action.extension" value="jsp,do,action"/>
 
 <package name="eshop" namespace="/" extends="struts-default"  >
 
 	<action name="index" class="com.csxh.action.IndexAction" method="handle">
 	      <result name="success" >index.jsp</result>
 	</action>
-	
+
+	<action name="category" class="com.csxh.action.CategoryAction" method="handle">
+	      <result name="success" >category.jsp</result>
+	</action>
+
+	<action name="subcategory" class="com.csxh.action.SubcategoryAction" method="handle">
+	      <result name="success" >subcategory.jsp</result>
+	</action>
+
+	<action name="product" class="com.csxh.action.ProductAction" method="handle">
+	      <result name="success" >product.jsp</result>
+	</action>
+
+	<action name="cart" class="com.csxh.action.CartAction" method="handle">
+	      <result name="success" >cart.jsp</result>
+	      <result name="login" >userlogin.jsp</result>
+	      
+	</action>
+
+	<action name="userlogin" class="com.csxh.action.LoginAction" method="handle">
+	      <result name="cart" >cart.jsp</result>
+	      <result name="index" type="redirect">index.jsp</result>
+	      <result name="input" >userlogin.jsp</result>
+	</action>
+
+
+	<action name="order" class="com.csxh.action.OrderAction" method="handle">
+	      <result name="success" >order.jsp</result>
+	</action>
+
+    
 
 </package>
 

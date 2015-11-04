@@ -2,8 +2,12 @@ package com.csxh.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.RequestAware;
 
 import com.csxh.model.Category;
 import com.csxh.model.Pager;
@@ -20,7 +24,7 @@ public class ProductAction implements RequestAware {
 		this.id = id;
 	}
 
-	private int currentPage;
+	private int currentPage=1;
 
 	public void setCurrentPage(int currentPage) {
 		// TODO Auto-generated method stub
@@ -29,7 +33,7 @@ public class ProductAction implements RequestAware {
 
 	public String handle() {
 
-		String result = "fail";
+		String result = "success";
 
 		String sql = "SELECT [id],[name],[categoryId]," + "[subCategoryId],[supplier],[author],"
 				+ "[description],[price],[listPrice]," + "[pubDate],[addDate]," + "[smallImg]," + "[bigImg]"
@@ -68,11 +72,11 @@ public class ProductAction implements RequestAware {
 		sub.setName((String) objects[0]);
 		product.setSubCategory(sub);
 
-		this.request.setAttribute("product", product);
+		this.request.put("product", product);
 
 		// 获取该产品的评论记录
 		int totalRows = JdbcUtil.queryTotalRows("review", "id", "productId='" + this.id + "'");
-		String s = this.request.getServletContext().getInitParameter("pageRows");
+		String s =ServletActionContext.getServletContext().getInitParameter("pageRows");
 		int pageRows = s == null ? 3 : Integer.parseInt(s);
 
 		Pager pager = new Pager(totalRows, pageRows);
@@ -95,18 +99,17 @@ public class ProductAction implements RequestAware {
 			reviewList.add(review);
 		}
 
-		this.request.setAttribute("pager", pager);
-		this.request.setAttribute("reviewList", reviewList);
+		this.request.put("pager", pager);
+		this.request.put("reviewList", reviewList);
 
 		return result;
 	}
 
-	HttpServletRequest request;
+	Map<String, Object> request;
 
 	@Override
-	public void setRequest(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		this.request = request;
+	public void setRequest(Map<String, Object> request) {
+		this.request=request;
 	}
 
 }

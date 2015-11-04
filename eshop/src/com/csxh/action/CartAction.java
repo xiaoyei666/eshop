@@ -1,14 +1,15 @@
 package com.csxh.action;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.struts2.ServletActionContext;
 
 import com.csxh.model.Cart;
 import com.csxh.model.CartItem;
-import com.csxh.util.Log4jUtil;
+import com.csxh.util.MyBatisSessionUtil;
 import com.csxh.util.ServletSessionUtil;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class CartAction {
+public class CartAction extends ActionSupport {
 
 	public static final String Add = "add";
 	public static final String Delete = "delete";
@@ -17,39 +18,50 @@ public class CartAction {
 	public static final String Clean = "clean";
 	public static final String List = "list";
 
-	HttpServletRequest req;
+	private String productId;
+	
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+	
+	private int productCount=1;
+	
+	public void setProductCount(int productCount) {
+		this.productCount = productCount;
+	}
+	
+	private String op=CartAction.List;
 
-	public void setRequest(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-		this.req = req;
+	public void setOp(String op) {
+
+		this.op = op;
 	}
 
-	private CartItem item;
-
-	public void setItem(CartItem item) {
-		// TODO Auto-generated method stub
-		this.item = item;
-	}
-
+	
 	public String handle() {
 
 		
 		String result = "success";
 
+		SqlSession session=MyBatisSessionUtil.openSession();
+		CartItem item=session.selectOne("com.csxh.model.Order.findCartItem", this.productId);
+		session.close();
 		
-		Cart cart=ServletSessionUtil.getCart(this.req, Cart.class);
+		item.setProductCount(this.productCount);
+		
+		Cart cart=ServletSessionUtil.getCart(ServletActionContext.getRequest(), Cart.class);
 		
 		if (this.op.equals(CartAction.Add)) {
 			
-			cart.add(this.item);
+			cart.add(item);
 
 		} else if (this.op.equals(CartAction.Delete)) {
 
-			cart.delete(this.item);
+			cart.delete(item);
 			
 		} else if (this.op.equals(CartAction.Update)) {
 
-			cart.update(this.item,this.item.getProductCount());
+			cart.update(item,item.getProductCount());
 			
 		} else if (this.op.equals(CartAction.Clean)) {
 
@@ -60,7 +72,7 @@ public class CartAction {
 		}
 		
 		//判断用户是否登录，如果不有登录，则返回 "login"，告诉过滤器转向登录页，而不是购物页
-		if(!ServletSessionUtil.isLoggined(this.req)){
+		if(!ServletSessionUtil.isLoggined(ServletActionContext.getRequest())){
 			
 			return "login";
 			
@@ -71,12 +83,5 @@ public class CartAction {
 
 	}
 
-	private String op;
-
-	public void setOp(String op) {
-
-		this.op = op;
-
-	}
-
+	
 }

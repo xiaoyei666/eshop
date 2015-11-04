@@ -95,14 +95,17 @@
               <!-- 判断是否显示热销标识:price not eq 0 -->
               <input type="image" border="0"  src="images/addtocart.gif" width="30" height="18" alt="加入购物车">
               <input type="hidden" name="productId" value="${product.id}">
-              <input type="hidden" name="productName" value="${product.name}">
+              <!-- 
+              <input type="hidden" name="item.productName" value="${product.name}">
               <c:if test="${!(product.listPrice eq 0) }">
-              <input type="hidden" name="productPrice" value="${product.listPrice}">
+              <input type="hidden" name="item.productPrice" value="${product.listPrice}">
               </c:if>              
               <c:if test="${!(product.price eq 0) }">
-              <input type="hidden" name="productPrice" value="${product.listPrice}">
+              <input type="hidden" name="item.productPrice" value="${product.listPrice}">
               </c:if>
+               -->
               <input type="hidden" name="productCount" value="1">
+              
               <input type="hidden" name="op" value="add">
               
             </form>

@@ -50,14 +50,24 @@ public class Cart {
 		this.itemList.clear();
 	}
 
-	public double getTotal() {
+	public double getTotalWeight() {
 
+		double total = 0.0;
+		for (CartItem item : this.itemList) {
+			total += item.getProductWeight() * item.getProductCount();
+		}
+		return total;
+
+	}
+
+	public double getTotalPrice() {
+		
 		double total = 0.0;
 		for (CartItem item : this.itemList) {
 			total += item.getProductPrice() * item.getProductCount();
 		}
 		return total;
-
+		
 	}
 
 }

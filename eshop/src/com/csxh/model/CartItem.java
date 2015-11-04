@@ -4,8 +4,17 @@ public class CartItem {
 
 	private String productId;
 	private String productName;
-	private double productPrice;
-	private Integer productCount;
+	private double productPrice=0;
+	private int productCount=0;
+	private double productWeight=0;
+	
+	public void setProductWeight(double productWeight) {
+		this.productWeight = productWeight;
+	}
+	
+	public double getProductWeight() {
+		return productWeight;
+	}
 	
 	public String getProductId() {
 		return productId;

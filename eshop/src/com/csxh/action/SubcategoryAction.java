@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.RequestAware;
 
 import com.csxh.model.Category;
 import com.csxh.model.Pager;
@@ -13,20 +13,17 @@ import com.csxh.model.Product;
 import com.csxh.model.SubCategory;
 import com.csxh.util.JdbcUtil;
 
-public class SubcategoryAction {
+public class SubcategoryAction implements RequestAware{
 
-	HttpServletRequest req;
+	Map<String, Object> req;//代替request
 
-	public void setRequest(HttpServletRequest req) {
+
+	@Override
+	public void setRequest(Map<String, Object> req) {
 		// TODO Auto-generated method stub
-		this.req = req;
+		this.req=req;
 	}
-
-	public void setSession(HttpSession session) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	Map<String, String[]> parameterMap;
 
 	public void setParams(Map<String, String[]> parameterMap) {
@@ -78,13 +75,14 @@ public class SubcategoryAction {
 		}
 
 		// 将子类别对象保存在JSP的内置对象中，以便在JSP中使用
-		this.req.setAttribute("subCategory", subCategory);
+		this.req.put("subCategory", subCategory);
 
 		// 根据分页条件获取产品的列表信息
 		// String sql="select count(id) from product where subCategoryId= "
 		// +this.id;
 		int totalRows = JdbcUtil.queryTotalRows("product", "id", "subCategoryId =" + this.id);
-		String pageRows = this.req.getServletContext().getInitParameter("pageRows");
+		
+		String pageRows =ServletActionContext.getServletContext().getInitParameter("pageRows");
 
 		Pager pager = new Pager(totalRows, pageRows != null ? Integer.parseInt(pageRows) : 3);
 
@@ -113,8 +111,8 @@ public class SubcategoryAction {
 			productList.add(p);
 		}
 
-		this.req.setAttribute("pager", pager);
-		this.req.setAttribute("productList", productList);
+		this.req.put("pager", pager);
+		this.req.put("productList", productList);
 
 		// 本类推荐商品
 		sql = "select top 10 id,name from product where commend=1 and subCategoryId=" + this.id;
@@ -127,7 +125,7 @@ public class SubcategoryAction {
 			p.setName((String) objects[1]);
 			commendProductList.add(p);
 		}
-		this.req.setAttribute("commendProductList", commendProductList);
+		this.req.put("commendProductList", commendProductList);
 		// 本类畅销商品
 		sql = "select top 10 id,name from product where subCategoryId=" + this.id +"order by sell desc";
 		objectList = JdbcUtil.queryForObjectList(sql);
@@ -139,7 +137,7 @@ public class SubcategoryAction {
 			p.setName((String) objects[1]);
 			bestSellProductList.add(p);
 		}
-		this.req.setAttribute("bestSellProductList", bestSellProductList);
+		this.req.put("bestSellProductList", bestSellProductList);
 
 		return result;
 	}
@@ -151,10 +149,12 @@ public class SubcategoryAction {
 		this.id = id;
 	}
 
-	private Integer currentPage;
+	private Integer currentPage=1;
 
 	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
+		this.currentPage = currentPage==null ? 1 :currentPage;
+		
 	}
+
 
 }

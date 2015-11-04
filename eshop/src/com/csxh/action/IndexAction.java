@@ -13,33 +13,16 @@ import com.csxh.model.Category;
 import com.csxh.model.Product;
 import com.csxh.model.SubCategory;
 import com.csxh.util.JdbcUtil;
+import com.opensymphony.xwork2.ActionContext;
 
 public class IndexAction {
 
-	protected HttpServletRequest request;
-
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-
-	}
-
-	public void setSession(HttpSession session) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setApplication(ServletContext servletContext) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setParams(Map<String, String[]> parameterMap) {
-		// TODO Auto-generated method stub
-
-	}
 
 	public String handle() {
 
+		//在struts中获取JSP的内置对象
+		
+		
 		// 获取index.jsp所需要的模型数据，并保存到jsp页的内置对象中
 
 		// 获取大类别及其子类别列表
@@ -54,7 +37,8 @@ public class IndexAction {
 				c.setChildren(subList);
 			}
 
-			this.request.setAttribute("categoryList", categoryList);
+			ActionContext.getContext().put("categoryList", categoryList);
+			//this.request.setAttribute("categoryList", categoryList);
 
 			result = "success";
 		}
@@ -76,7 +60,8 @@ public class IndexAction {
 		}
 
 		if (hotProductList.size() > 0) {
-			this.request.setAttribute("hotProductList", hotProductList);
+			ActionContext.getContext().put("hotProductList", hotProductList);
+			//this.request.setAttribute("hotProductList", hotProductList);
 			result = "success";
 		}
 
@@ -96,7 +81,9 @@ public class IndexAction {
 		}
 
 		if (sellProductList.size() > 0) {
-			this.request.setAttribute("sellProductList", sellProductList);
+			
+			ActionContext.getContext().put("sellProductList", sellProductList);
+			//this.request.setAttribute("sellProductList", sellProductList);
 			result = "success";
 		}
 
@@ -121,7 +108,10 @@ public class IndexAction {
 		}
 
 		if (newProductList.size() > 0) {
-			this.request.setAttribute("newProductList", newProductList);
+			
+			ActionContext.getContext().put("newProductList", newProductList);
+			
+			//this.request.setAttribute("newProductList", newProductList);
 			result = "success";
 		}
 
@@ -146,7 +136,9 @@ public class IndexAction {
 		}
 		
 		if (commendProductList.size() > 0) {
-			this.request.setAttribute("commendProductList", commendProductList);
+			
+			ActionContext.getContext().put("commendProductList", commendProductList);
+			//this.request.setAttribute("commendProductList", commendProductList);
 			result = "success";
 		}
 
@@ -173,7 +165,9 @@ public class IndexAction {
 		}
 		
 		if (discountProductList.size() > 0) {
-			this.request.setAttribute("discountProductList", discountProductList);
+			
+			ActionContext.getContext().put("discountProductList", discountProductList);
+			//this.request.setAttribute("discountProductList", discountProductList);
 			result = "success";
 		}
 

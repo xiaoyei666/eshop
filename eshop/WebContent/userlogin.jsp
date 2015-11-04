@@ -69,13 +69,13 @@
           <tr> 
             <td width="143" class="productName" align="right" valign="middle">Email£º</td>
             <td width="336"> 
-              <input type="text" name="email" value="jiajia@fans8.com">
+              <input type="text" name="customer.email" value="jiajia@fans8.com">
             </td>
           </tr>
           <tr> 
             <td width="143" class="productName" align="right" valign="middle">ÃÜ¡¡Âë£º</td>
             <td width="336"> 
-              <input type="password" name="password" value="11111">
+              <input type="password" name="customer.password" value="11111">
             </td>
           </tr>
           <tr align="center" valign="middle"> 

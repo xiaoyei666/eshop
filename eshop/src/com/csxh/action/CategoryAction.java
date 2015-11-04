@@ -3,12 +3,12 @@ package com.csxh.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.csxh.model.ActionContext;
 import com.csxh.model.Category;
 import com.csxh.model.Product;
 import com.csxh.model.SubCategory;
 import com.csxh.util.JdbcUtil;
 import com.csxh.util.Log4jUtil;
+import com.opensymphony.xwork2.ActionContext;
 
 public class CategoryAction {
 
@@ -31,7 +31,7 @@ public class CategoryAction {
 		List<SubCategory> subCategoryList=JdbcUtil.queryForObjectList(SubCategory.class, "categoryId="+this.id);
 		category.setChildren(subCategoryList);
 		
-		ctx.getRequest().setAttribute("category", category);
+		ActionContext.getContext().put("category", category);
 		
 		List<Object[]> objectList=new ArrayList<Object[]>();
 		sql="select "+top+" id,name,author,description,smallImg from product where categoryId="+this.id+" order by addDate desc";
@@ -49,7 +49,7 @@ public class CategoryAction {
 			result="success";
 		}
 		
-		this.ctx.getRequest().setAttribute("newProductList", newProductList);
+		ActionContext.getContext().put("newProductList", newProductList);
 		sql="select "+top+" id,name,author,description,smallImg from product where commend=1 and categoryId="+this.id;
 		objectList=JdbcUtil.queryForObjectList(sql);
 		List<Product>commendProductList=new ArrayList<Product>();
@@ -65,7 +65,7 @@ public class CategoryAction {
 			result="success";
 		}
 		
-		this.ctx.getRequest().setAttribute("commendProductList", commendProductList);
+		ActionContext.getContext().put("commendProductList", commendProductList);
 		
 		sql="select "+top+" id,name,author,description,price,listPrice,smallImg from product where hotDeal=1 and categoryId="+this.id;
 		objectList=JdbcUtil.queryForObjectList(sql);
@@ -86,7 +86,7 @@ public class CategoryAction {
 			result="success";
 		}
 		
-		this.ctx.getRequest().setAttribute("discountProductList", discountProductList);		
+		ActionContext.getContext().put("discountProductList", discountProductList);
 
 		sql="select "+top+" id,name,author,description,smallImg from product where categoryId="+this.id +"order by sell desc";
 		objectList=JdbcUtil.queryForObjectList(sql);
@@ -104,15 +104,10 @@ public class CategoryAction {
 			
 			result="success";
 		}
-		this.ctx.getRequest().setAttribute("bestSellProductList", bestSellProductList);
+		
+		ActionContext.getContext().put("bestSellProductList", bestSellProductList);
 		
 		return result;
 	}
-	private ActionContext ctx;
-	public void setActionContext(ActionContext ctx) {
-		// TODO Auto-generated method stub
-		this.ctx=ctx;
-	}
-
 	
 }

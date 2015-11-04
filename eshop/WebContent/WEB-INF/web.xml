@@ -17,8 +17,8 @@
   
   <filter-mapping>
   <filter-name>struts</filter-name>
-  <url-pattern>*</url-pattern>
-  
+  <url-pattern>/*</url-pattern>
+  <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
   
 </web-app>

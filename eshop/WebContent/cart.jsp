@@ -95,7 +95,7 @@
             <td width="27%">&nbsp;</td>
             <td width="34%">&nbsp;</td>
             <td align="right" width="11%" bgcolor="#E0E0E0"><b>总计费用：</b></td>
-            <td colspan="2">${cart.total}元</td>
+            <td colspan="2">${sessionScope.ctx.cart.totalPrice}元</td>
           </tr>
           <tr align="center" valign="baseline"> 
             <td></td>
