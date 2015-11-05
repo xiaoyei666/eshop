@@ -64,7 +64,7 @@
     <td> 　　<img src="images/checkorder.gif" width="190" height="30"> 
       <table width="80%" border="0" cellspacing="2" cellpadding="2" align="center">
         <tr align="center" valign="middle"> 
-          <td height="24" class="productName" colspan="3">${Name}，您好！以下是您的所有定单信息。</td>
+          <td height="24" class="productName" colspan="3">${sessionScope.ctx.user.name}，您好！以下是您的所有定单信息。</td>
         </tr>
         <tr align="center" valign="middle"> 
           <td height="24" class="productName" bgcolor="#5880A8"><font color="#FFFFFF">定单号</font></td>
@@ -74,17 +74,24 @@
         
         <tr align="center" valign="middle"> 
           <td height="24" bgcolor="#D9D9DB">
-            <a href="orderdetail.jsp?" class="productName">${OrderID}</a>
+            <a href="orderdetail.jsp?" class="productName">${order.id}</a>
           </td>
-          <td height="24" bgcolor="#D9D9DB" class="productName">${OrderDate}</td>
+          <td height="24" bgcolor="#D9D9DB" class="productName">${order.orderDate}</td>
           <td height="24" bgcolor="#D9D9DB"> 
           <!-- 订单是否处理完成：Fulfilled  -->
-            <span class="productName">是</span> 
+          <c:choose>
+             <c:when test="${order.finished}">             
+                <span class="productName">是</span> 
+             </c:when>
+             <c:otherwise>
+                <!-- 订单是否没有处理完成 -->
+                  <span class="productName">否</span> 
+                <!-- 订单是否没有处理完成 --> 
+             </c:otherwise>
+          </c:choose>
           <!-- 订单是否处理完成  -->
             
-            <!-- 订单是否没有处理完成 -->
-            <span class="productName">否</span> 
-            <!-- 订单是否没有处理完成 -->
+            
           </td>
         </tr>
       

@@ -75,7 +75,7 @@
           </tr>
 
          <!-- 购物项列表开始 --> 
-         <c:forEach items="${ sessionScope.ctx.cart.itemList }" var="item" >
+         <c:forEach items="${ sessionScope.cart.itemList }" var="item" >
           <tr align="center" valign="middle"> 
             <td width="27%">${item.productId}</td>
             <td width="34%">${item.productName}</td>
@@ -95,7 +95,7 @@
             <td width="27%">&nbsp;</td>
             <td width="34%">&nbsp;</td>
             <td align="right" width="11%" bgcolor="#E0E0E0"><b>总计费用：</b></td>
-            <td colspan="2">${sessionScope.ctx.cart.totalPrice}元</td>
+            <td colspan="2">${sessionScope.cart.totalPrice}元</td>
           </tr>
           <tr align="center" valign="baseline"> 
             <td></td>

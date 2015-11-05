@@ -42,6 +42,9 @@
 
 	<action name="order" class="com.csxh.action.OrderAction" method="handle">
 	      <result name="success" >order.jsp</result>
+	      <result name="checkorder" >checkorder.jsp</result>
+	      <result name="login" type="redirectAction" >userlogin</result>
+	      
 	</action>
 
     

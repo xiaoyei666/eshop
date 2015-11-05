@@ -8,6 +8,7 @@ public class Customer {
 	private String realname;
 	private String passwordQuestion;
 	private String passwordAnswer;
+	private String city;
 	private String address;
 	private String zip;
 	private String phone;
@@ -46,6 +47,12 @@ public class Customer {
 	}
 	public void setPasswordAnswer(String passwordAnswer) {
 		this.passwordAnswer = passwordAnswer;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCity() {
+		return city;
 	}
 	public String getAddress() {
 		return address;

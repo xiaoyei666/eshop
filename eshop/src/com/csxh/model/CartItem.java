@@ -6,13 +6,13 @@ public class CartItem {
 	private String productName;
 	private double productPrice=0;
 	private int productCount=0;
-	private double productWeight=0;
+	private float productWeight=0;
 	
-	public void setProductWeight(double productWeight) {
+	public void setProductWeight(float productWeight) {
 		this.productWeight = productWeight;
 	}
 	
-	public double getProductWeight() {
+	public float getProductWeight() {
 		return productWeight;
 	}
 	

@@ -70,8 +70,8 @@
     <td width="1" bgcolor="#000000"></td>
     <td align="center" valign="top" width="758"> 
       <p>&nbsp;</p>
-      <span class="productName">${sessionScope.ctx.user.realname},您好~！</span><br>
-      <form name="form1" method="POST" action="">
+      <span class="productName">${sessionScope.user.realname},您好~！</span><br>
+      <form name="form1" method="POST" action="order.jsp">
         <table width="90%" border="0" cellspacing="2" cellpadding="2">
           <tr bgcolor="#E1E1E1"> 
             <td colspan="3" height="24" class="productName">以下是您所购买的商品</td>
@@ -80,7 +80,7 @@
             <td colspan="3" height="1"></td>
           </tr>
           <!-- 购物的商品列表开始 -->
-          <c:forEach items="${sessionScope.ctx.cart.itemList}" var="item">
+          <c:forEach items="${sessionScope.cart.itemList}" var="item">
           
           <tr> 
             <td width="50%"><b>商品编号：</b>${item.productId}</td>
@@ -100,7 +100,7 @@
           </c:forEach>
           <!-- 购物的商品列表结束 -->
           <tr bgcolor="#E1E1E1" valign="middle"> 
-            <td colspan="2">您共购买了${fn:length(sessionScope.ctx.cart.itemList)}个商品，总重为${sessionScope.ctx.cart.totalWeight}公斤，总计费用为：${sessionScope.ctx.cart.totalPrice}元。</td>
+            <td colspan="2">您共购买了${fn:length(sessionScope.cart.itemList)}个商品，总重为${sessionScope.cart.totalWeight}公斤，总计费用为：${sessionScope.cart.totalPrice}元。</td>
             <td width="20%" align="center">
             <a href="cart.jsp"><img src="images/updatecart.gif" width="87" height="24" border="0"></a></td>
           </tr>
@@ -115,39 +115,43 @@
           </tr>
           <tr> 
             <td colspan="2"><b>收货人姓名： 
-              <input type="text" name="DeliverName" value="${sessionScope.ctx.user.realname}" class="textbox">
+              <input type="text" name="deliverName" value="${sessionScope.user.realname}" class="textbox">
               </b></td>
             <td width="48%"><b>收货人城市： 
-              <input type="text" name="DeliverCity" value="${sessionScope.ctx.user.city}" class="textbox">
+              <input type="text" name="deliverCity" value="${sessionScope.user.city}" class="textbox">
               </b></td>
           </tr>
           <tr> 
             <td colspan="2"><b>收货人电话： 
-              <input type="text" name="DeliverPhone" value="${sessionScope.ctx.user.phone}" class="textbox">
+              <input type="text" name="deliverPhone" value="${sessionScope.user.phone}" class="textbox">
               </b></td>
             <td width="48%"><b>收货人邮编： 
-              <input type="text" name="DeliverZip" value="${sessionScope.ctx.user.zip}" class="textbox">
+              <input type="text" name="deliverZip" value="${sessionScope.user.zip}" class="textbox">
               </b></td>
           </tr>
           <tr> 
             <td width="13%"><b>收货人地址： </b></td>
             <td valign="top" colspan="2"><b> 
-              <textarea name="DeliverAddres" cols="50" rows="3" class="textbox">${sessionScope.ctx.user.address}</textarea>
+              <textarea name="deliverAddres" cols="50" rows="3" class="textbox">${sessionScope.user.address}</textarea>
               </b></td>
           </tr>
           <tr> 
             <td valign="top" colspan="2"><b>付款方式： 
               <select name="paymethodId">
                 <!-- 列表选项 -->
+                
+                
+                
                 <c:forEach items="${paymethodList }" var="paymenthod" >
                 <option value="${paymenthod.id}" >${paymenthod.name}</option>
                 </c:forEach>
+                
                 <!-- 列表选项 -->
 
               </select>
               </b></td>
             <td width="48%"><b>收货方式： 
-              <select name="shippingId">
+              <select name=shippingId>
                 <!-- 列表选项 -->
                 <c:forEach items="${shippingList }" var="shipping">
                 <option value="${shipping.id}" >${shipping.name}</option>
@@ -163,12 +167,10 @@
           <tr bgcolor="#E1E1E1" align="center" valign="middle"> 
             <td colspan="3" height="25"> 
               <input type="submit" value="提交定单">
-              <input type="hidden" name="OrderID" value="${OrderID}">
-              <input type="hidden" name="CustomerID" value="${CustomerID}">
             </td>
           </tr>
         </table>
-        <input type="hidden" name="MM_insert" value="true">
+        <input type="hidden" name="op" value="add">
       </form>
     </td>
     <td width="1" bgcolor="#000000"></td>

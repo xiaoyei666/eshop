@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/cart.jsp=gb2312
+encoding//WebContent/checkorder_login.jsp=gb2312
 encoding//WebContent/customer_register.jsp=gb2312
 encoding//WebContent/index.jsp=gb2312
 encoding//WebContent/order.jsp=gb2312

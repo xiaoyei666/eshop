@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-11-5 10:34:56 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.csxh.model.Order" table="[order]">
+        <id name="id" type="int" >
+            <generator  class="native" />
+        </id>
+        <property name="orderId" type="java.lang.Integer">
+            
+        </property>
+        <property name="customerId" type="java.lang.Integer">
+           
+        </property>
+        <property name="payMethodId" type="java.lang.Integer">
+           
+        </property>
+        <property name="deliverName" type="java.lang.String">
+            
+        </property>
+        <property name="deliverCity" type="java.lang.String">
+            
+        </property>
+        <property name="deliverAddres" type="java.lang.String">
+            
+        </property>
+        <property name="deliverZip" type="java.lang.String">
+            
+        </property>
+        <property name="deliverPhone" type="java.lang.String">
+           
+        </property>
+        <property name="shippingId" type="java.lang.Integer">
+           
+        </property>
+        <property name="orderDate" type="java.util.Date">
+           
+        </property>
+        <property name="finished" type="boolean">
+            
+        </property>
+        <property name="finishedTime" type="java.util.Date">
+           
+        </property>
+        <property name="adminName" type="java.lang.String">
+           
+        </property>
+        <property name="adminId" type="java.lang.Integer">
+            
+        </property>
+    </class>
+</hibernate-mapping>

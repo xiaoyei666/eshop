@@ -13,49 +13,23 @@ public class Order implements java.io.Serializable {
 	private Integer orderId;
 	private Integer customerId;
 	private Integer payMethodId;
-	private Serializable deliverName;
-	private Serializable deliverCity;
-	private Serializable deliverAddres;
-	private Serializable deliverZip;
-	private Serializable deliverPhone;
+	private String deliverName;
+	private String deliverCity;
+	private String deliverAddres;
+	private String deliverZip;
+	private String deliverPhone;
 	private Integer shippingId;
 	private Date orderDate;
 	private boolean finished;
 	private Date finishedTime;
-	private Serializable adminName;
+	private String adminName;
 	private Integer adminId;
 
 	public Order() {
 	}
 
-	public Order(int id, boolean finished) {
-		this.id = id;
-		this.finished = finished;
-	}
-
-	public Order(int id, Integer orderId, Integer customerId, Integer payMethodId, Serializable deliverName,
-			Serializable deliverCity, Serializable deliverAddres, Serializable deliverZip, Serializable deliverPhone,
-			Integer shippingId, Date orderDate, boolean finished, Date finishedTime, Serializable adminName,
-			Integer adminId) {
-		this.id = id;
-		this.orderId = orderId;
-		this.customerId = customerId;
-		this.payMethodId = payMethodId;
-		this.deliverName = deliverName;
-		this.deliverCity = deliverCity;
-		this.deliverAddres = deliverAddres;
-		this.deliverZip = deliverZip;
-		this.deliverPhone = deliverPhone;
-		this.shippingId = shippingId;
-		this.orderDate = orderDate;
-		this.finished = finished;
-		this.finishedTime = finishedTime;
-		this.adminName = adminName;
-		this.adminId = adminId;
-	}
-
 	public int getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(int id) {
@@ -63,7 +37,7 @@ public class Order implements java.io.Serializable {
 	}
 
 	public Integer getOrderId() {
-		return this.orderId;
+		return orderId;
 	}
 
 	public void setOrderId(Integer orderId) {
@@ -71,7 +45,7 @@ public class Order implements java.io.Serializable {
 	}
 
 	public Integer getCustomerId() {
-		return this.customerId;
+		return customerId;
 	}
 
 	public void setCustomerId(Integer customerId) {
@@ -79,55 +53,55 @@ public class Order implements java.io.Serializable {
 	}
 
 	public Integer getPayMethodId() {
-		return this.payMethodId;
+		return payMethodId;
 	}
 
 	public void setPayMethodId(Integer payMethodId) {
 		this.payMethodId = payMethodId;
 	}
 
-	public Serializable getDeliverName() {
-		return this.deliverName;
+	public String getDeliverName() {
+		return deliverName;
 	}
 
-	public void setDeliverName(Serializable deliverName) {
+	public void setDeliverName(String deliverName) {
 		this.deliverName = deliverName;
 	}
 
-	public Serializable getDeliverCity() {
-		return this.deliverCity;
+	public String getDeliverCity() {
+		return deliverCity;
 	}
 
-	public void setDeliverCity(Serializable deliverCity) {
+	public void setDeliverCity(String deliverCity) {
 		this.deliverCity = deliverCity;
 	}
 
-	public Serializable getDeliverAddres() {
-		return this.deliverAddres;
+	public String getDeliverAddres() {
+		return deliverAddres;
 	}
 
-	public void setDeliverAddres(Serializable deliverAddres) {
+	public void setDeliverAddres(String deliverAddres) {
 		this.deliverAddres = deliverAddres;
 	}
 
-	public Serializable getDeliverZip() {
-		return this.deliverZip;
+	public String getDeliverZip() {
+		return deliverZip;
 	}
 
-	public void setDeliverZip(Serializable deliverZip) {
+	public void setDeliverZip(String deliverZip) {
 		this.deliverZip = deliverZip;
 	}
 
-	public Serializable getDeliverPhone() {
-		return this.deliverPhone;
+	public String getDeliverPhone() {
+		return deliverPhone;
 	}
 
-	public void setDeliverPhone(Serializable deliverPhone) {
+	public void setDeliverPhone(String deliverPhone) {
 		this.deliverPhone = deliverPhone;
 	}
 
 	public Integer getShippingId() {
-		return this.shippingId;
+		return shippingId;
 	}
 
 	public void setShippingId(Integer shippingId) {
@@ -135,7 +109,7 @@ public class Order implements java.io.Serializable {
 	}
 
 	public Date getOrderDate() {
-		return this.orderDate;
+		return orderDate;
 	}
 
 	public void setOrderDate(Date orderDate) {
@@ -143,7 +117,7 @@ public class Order implements java.io.Serializable {
 	}
 
 	public boolean isFinished() {
-		return this.finished;
+		return finished;
 	}
 
 	public void setFinished(boolean finished) {
@@ -151,23 +125,23 @@ public class Order implements java.io.Serializable {
 	}
 
 	public Date getFinishedTime() {
-		return this.finishedTime;
+		return finishedTime;
 	}
 
 	public void setFinishedTime(Date finishedTime) {
 		this.finishedTime = finishedTime;
 	}
 
-	public Serializable getAdminName() {
-		return this.adminName;
+	public String getAdminName() {
+		return adminName;
 	}
 
-	public void setAdminName(Serializable adminName) {
+	public void setAdminName(String adminName) {
 		this.adminName = adminName;
 	}
 
 	public Integer getAdminId() {
-		return this.adminId;
+		return adminId;
 	}
 
 	public void setAdminId(Integer adminId) {

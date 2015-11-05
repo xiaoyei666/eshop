@@ -61,9 +61,9 @@ public class JdbcUtil {
 	public static int queryTotalRows(String tableName, String pramaryKey) {
 		int totalRows = 0;
 		String sql = "select count(" + pramaryKey + ") from " + tableName;
-		ResultSet rs=null;
-		Statement stmt=null;
-		Connection cnn=null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		Connection cnn = null;
 		try {
 			cnn = openConnection();
 			stmt = cnn.createStatement();
@@ -77,7 +77,8 @@ public class JdbcUtil {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}try {
+		}
+		try {
 			if (rs != null) {
 				rs.close();
 			}
@@ -98,9 +99,9 @@ public class JdbcUtil {
 		int totalRows = 0;
 		where = where.replace("where", "");
 		String sql = "select count(" + pramaryKey + ") from " + tableName + " where " + where;
-		ResultSet rs=null;
-		Statement stmt=null;
-		Connection cnn=null;
+		ResultSet rs = null;
+		Statement stmt = null;
+		Connection cnn = null;
 		try {
 			cnn = openConnection();
 			stmt = cnn.createStatement();
@@ -771,12 +772,12 @@ public class JdbcUtil {
 	// 从数据库表中查询记录
 	@SuppressWarnings("unchecked")
 	public static <T> T queryForObject(Class<T> javaBeanClass, String... wheres) {
-	   List<T> list=(List<T>) JdbcUtil.queryForObjectList(javaBeanClass, wheres);
-	   if(list.size()>0){
-		   return list.get(0);
-	   }else{
-		   return null;
-	   }
+		List<T> list = (List<T>) JdbcUtil.queryForObjectList(javaBeanClass, wheres);
+		if (list.size() > 0) {
+			return list.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	// 当表与javabean的名称不一致，可以建立它们之间的名称映射对象
@@ -943,6 +944,37 @@ public class JdbcUtil {
 		}
 
 		return fOk;
+
+	}
+
+	public static void updateSql(String sql) {
+
+		Connection cnn = null;
+		Statement stmt = null;
+
+		try {
+			cnn = JdbcUtil.openConnection();
+			stmt = cnn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				if(stmt!=null){
+					stmt.close();
+				}
+				if(cnn!=null){
+					cnn.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 
